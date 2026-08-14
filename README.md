@@ -63,7 +63,7 @@ MIT License — see `LICENSE` file.
 
 ## 🚀 Status
 Project initialization phase. Folder structure and architecture documentation prepared.
-📁 Folder Structure (Copy into your repo)
+📁 Folder Structure 
 Code
 Sky-City/
 │
@@ -90,7 +90,7 @@ Sky-City/
 ├── .gitignore
 ├── LICENSE
 └── README.md
-🏗️ Initial Commit Files (Ready to paste)
+🏗️ Initial Commit Files
 index.html
 Code
 <!DOCTYPE html>
