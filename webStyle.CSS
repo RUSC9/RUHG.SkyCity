@@ -1,0 +1,140 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+   */
+
+   /* HTML5 display-role reset for older browsers */
+   article, aside, details, figcaption, figure, 
+   footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  /*set body style background graphics and text-shadow */
+   body {
+    font-family: "ariel", "san-serif";
+    border-radius: 25px;
+    background: lightskyblue;
+    color: lightskyblue;
+    display: block;
+    background-image: url("https://clipartion.com/wp-content/uploads/2015/12/autumn-leaves-png-images-free-png-yellow-leaves.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    
+  }
+  
+   /*Set rotate topography graphics*/ 
+    a {
+        color: lightskyblue;
+        font-size: 40px;
+        text-decoration: none;
+        text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin: 0;
+        position: absolute;
+        top: 8%;
+        left: 68%;
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+   }
+   a: before,
+   a:after {
+       content: " ";
+       padding: .9em .4em;
+       position: absolute;
+       left: 50%;
+       width: 100%;
+       top: 50%;
+       display: inline-block;
+       border: 15px solid #c6b497;
+       transform: tanslateX(-50%) translateY(-50%) rotate(0deg);
+       animation: 10s infinite alternate ease-in-out rotate;
+   }
+   a: before {
+       border-color: #c6b497 #c6b497 rgba(0,0,0,0) rgba(0,0,0,0); z-index:-1;
+   }
+   a: after {
+       border-color:rgba(0,0,0,0) rgba(0,0,0,0) #c6b497;
+       text-shadow: 55px 55px 55px rgba(46,46,49,.8);
+   }
+   @keyframes rotate{
+       0%{
+       transform: translateX(-50%) translateY(-50%) rotate(0deg);
+   }
+      100%{
+       transform: translateX(-50%) translateY(-50%) rotate(360deg);
+     }
+   } 
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+/*=========================================
+    Main Styles
+    =========================================*/
+
+    .container {
+      width: 989px;
+      margin: 0 auto;
+      color: white;
+    }
+
+    .footer {
+      text-align: center;
+    }
+  /*snhu logo styling details*/  
+  .fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  /*Penma logo styling details*/ 
+ .floated-image {
+    float: left;
+  }
+  /* audio and video style details*/
+ .graphics {
+   display: inline-block;
+   width: 300px;
+   height: 200px;
+   text-align: center;
+  }
+  /*background-image drop style*/
+  .graphics2 {
+   display: block;
+   width: 75px;
+   height: 75px;
+  }
+  /* align data left-right until the end of the row then follow on next row*/
+   .inline-block {
+   display: inline-block;
+   width: 100px;
+   height: 100px;
+   text-align: right;
+   color: lightskyblue;
+ 
+  }
+
+  /* color distinction- topogrophy */
+  .label {
+  font-size: 24px; font-weight: bold;
+  padding: 2px;
+  color: lightskyblue;
+  text-align: left;
+  }
+    .label2 {
+  font-size: 24px; font-weight: bold;
+  padding: 2px;
+  color: white;
+  text-align: left;
+  }
