@@ -1,26 +1,91 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <title>About Sky City</title>
-        </head>
-        <body>
-            <header>
-            <div><img src="img/SkyCity LLC.Logo.JPG" alt = "1ST CITY IN THE CLOUDS"/></div>
-            <div><b>Coming soon</b>, check back for listings.</div>
-            </header
-               <section>
-             <nav class="city-nav">
-                <ul>
-                    <li><a href="Index.html">Home/City Center</a></li>
-                    <li><a href="Business.District.index.html">Business Home</a></li>
-                    <li><a href="Entertainment.District.index.html">Entertainment Home</a></li>
-                    <li><a href="Hospitality.Services.index.html">Hospitality Home</a></li>
-                    <li><a href="Mobile.Services.index.html">Mobile Services Home</a></li>
-<                   <li><a href="About.html">About Sky City</a></li>
-                    <li><a href="Account.html">User Profile</a></li>
-                    <li><a href="Login.html">User Login</a></li>                 
-                    
-                </ul>
-            </nav>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sky City – City Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="sc-header">
+    <div class="sc-logo">Sky City</div>
+    <nav class="sc-nav">
+      <a href="#districts">Districts</a>
+      <a href="#featured">Featured</a>
+      <a href="#announcements">Announcements</a>
+      <a href="#join">Join Sky City</a>
+    </nav>
+  </header>
+
+  <main class="sc-main">
+    <!-- Welcome Section -->
+    <section class="sc-section sc-welcome">
+      <h1>Welcome to Sky City</h1>
+      <p>A digital metropolis connecting consumers, businesses, creators, and services.</p>
+    </section>
+
+    <!-- District Navigation -->
+    <section id="districts" class="sc-section sc-districts">
+      <h2>Explore the Districts</h2>
+      <div class="sc-district-grid">
+        <div class="sc-district-card">Business District</div>
+        <div class="sc-district-card">Entertainment District</div>
+        <div class="sc-district-card">Food &amp; Drink District</div>
+        <div class="sc-district-card">Services District</div>
+        <div class="sc-district-card">Social District</div>
+        <div class="sc-district-card">Infrastructure District</div>
+      </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section id="featured" class="sc-section sc-featured">
+      <h2>Featured Businesses</h2>
+      <div id="featured-businesses" class="sc-featured-list">
+        <!-- Populated by JS/API -->
+      </div>
+
+      <h2>Featured Entertainment</h2>
+      <div id="featured-entertainment" class="sc-featured-list">
+        <!-- Populated by JS/API -->
+      </div>
+    </section>
+
+    <!-- Announcements -->
+    <section id="announcements" class="sc-section sc-announcements">
+      <h2>City Announcements</h2>
+      <ul id="announcement-list">
+        <!-- Populated by JS/API -->
+      </ul>
+    </section>
+
+    <!-- Join Sky City -->
+    <section id="join" class="sc-section sc-join">
+      <h2>Join Sky City</h2>
+      <div class="sc-join-grid">
+        <div class="sc-join-card">
+          <h3>Consumers</h3>
+          <p>Create your profile and explore the city.</p>
+          <button onclick="window.location.href='/register/consumer'">
+            Join as Consumer
+          </button>
+        </div>
+        <div class="sc-join-card">
+          <h3>Businesses</h3>
+          <p>Open your storefront, list services, and connect with customers.</p>
+          <button onclick="window.location.href='/register/business'">
+            Join as Business
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sc-footer">
+    <p>&copy; Sky City – A Ray’s Up Holding Group Initiative</p>
+  </footer>
+
+  <script src="home.js"></script>
+</body>
+</html>
 
            
