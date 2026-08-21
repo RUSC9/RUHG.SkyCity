@@ -1,0 +1,1 @@
+getDistrictHome(req, res)
