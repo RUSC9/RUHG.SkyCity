@@ -1,0 +1,19 @@
+<% layout('layout') %>
+
+<section class="district-page">
+  <header>
+    <h1>SkyCity Districts</h1>
+  </header>
+  
+  <p>The Business District connects entrepreneurs, small businesses, and consumers across Sky City.</p>
+  <p>Select a district to explore:</p>
+
+  <ul>
+    <li><a href="/districts/business">Business</a></li>
+    <li><a href="/districts/entertainment">Entertainment</a></li>
+    <li><a href="/districts/foodDrink">Food & Drinks</a></li>
+    <li><a href="/districts/social">Socials</a></li>
+    <li><a href="/districts/infrastructure">Infrastructure</a></li>
+    <li><a href="/districts/services">Services</a></li>
+  </ul>
+</section>
