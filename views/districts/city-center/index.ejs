@@ -1,19 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const CityCenterController = require("../controllers/cityCenterController");
+<% layout('layout') %>
 
-// Home page
-router.get("/", CityCenterController.getHomePage);
+<section>
+  <h2><%= title %></h2>
+  <p><%= description %></p>
 
-// Featured sections
-router.get("/featured/businesses", CityCenterController.getFeaturedBusinesses);
-router.get("/featured/entertainment", CityCenterController.getFeaturedEntertainment);
+  <ul>
+    <% features.forEach(feature => { %>
+      <li><%= feature %></li>
+    <% }) %>
+  </ul>
+</section>
 
-// Announcements
-router.get("/announcements", CityCenterController.getAnnouncements);
-
-// Registration
-router.post("/register/consumer", CityCenterController.registerConsumer);
-router.post("/register/business", CityCenterController.registerBusiness);
-
-module.exports = router;
