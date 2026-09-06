@@ -1,14 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const cityCenterController = require('../controllers/cityCenterController');
+const CityCenterController = require("../controllers/cityCenterController");
 
-// Homepage
-router.get('/', cityCenterController.index);
+// Home page
+router.get("/", CityCenterController.getHomePage);
+
+// Featured sections
+router.get("/featured/businesses", CityCenterController.getFeaturedBusinesses);
+router.get("/featured/entertainment", CityCenterController.getFeaturedEntertainment);
 
 // Announcements
-router.get('/announcements', cityCenterController.getAnnouncements);
-router.post('/announcements', cityCenterController.addAnnouncement);
+router.get("/announcements", CityCenterController.getAnnouncements);
+router.post("/announcements", CityCenterController.addAnnouncement);
+
+// Registration
+router.post("/register/consumer", CityCenterController.registerConsumer);
+router.post("/register/business", CityCenterController.registerBusiness);
 
 module.exports = router;
+
 
 
