@@ -1,40 +1,32 @@
-module.exports = {
-    async getHomePageData() {
-        return {
-            welcome: "Welcome to Sky City",
-            districts: [
-                "Business District",
-                "Entertainment District",
-                "Food & Drink District",
-                "Services District",
-                "Social District",
-                "Infrastructure District"
-            ],
-            featured: {
-                businesses: [],
-                entertainment: []
-            },
-            announcements: []
-        };
-    },
+// districts/cityCenter/services/cityCenterService.js
 
-    async getFeaturedBusinesses() {
-        return []; // Replace with DB call
-    },
+const Announcement = require('../models/Announcement');
+const homeModel = require('../models/homeModel');
 
-    async getFeaturedEntertainment() {
-        return []; // Replace with DB call
-    },
+class CityCenterService {
+  constructor() {
+    this.announcements = [];
+  }
 
-    async getAnnouncements() {
-        return []; // Replace with DB call
-    },
+  getHomeData() {
+    return homeModel.getHomeData();
+  }
 
-    async registerConsumer(data) {
-        return { success: true, message: "Consumer registered", data };
-    },
+  getAnnouncements() {
+    return this.announcements;
+  }
 
-    async registerBusiness(data) {
-        return { success: true, message: "Business registered", data };
-    }
-};
+  addAnnouncement(title, message) {
+    const newAnnouncement = new Announcement(
+      this.announcements.length + 1,
+      title,
+      message
+    );
+
+    this.announcements.push(newAnnouncement);
+    return newAnnouncement;
+  }
+}
+
+module.exports = new CityCenterService();
+
