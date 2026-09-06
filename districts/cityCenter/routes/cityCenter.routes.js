@@ -1,8 +1,14 @@
-// districts/cityCenter/routes/cityCenter.routes.js
-const router = require("express").Router();
-const CityCenterController = require("../controllers/cityCenterController");
+const express = require('express');
+const router = express.Router();
+const cityCenterController = require('../controllers/cityCenterController');
 
-router.get("/", CityCenterController.getDistrictHome);
+// Homepage
+router.get('/', cityCenterController.index);
+
+// Announcements
+router.get('/announcements', cityCenterController.getAnnouncements);
+router.post('/announcements', cityCenterController.addAnnouncement);
 
 module.exports = router;
+
 
