@@ -1,10 +1,14 @@
-const mongoose = require("../../../core/database/connection");
+// districts/cityCenter/models/Announcement.js
 
-const AnnouncementSchema = new mongoose.Schema({
-  title: String,
-  message: String,
-  createdAt: { type: Date, default: Date.now }
-});
+class Announcement {
+  constructor(id, title, message, createdAt) {
+    this.id = id;
+    this.title = title;
+    this.message = message;
+    this.createdAt = createdAt || new Date();
+  }
+}
 
-module.exports = mongoose.model("Announcement", AnnouncementSchema);
+module.exports = Announcement;
+
 
