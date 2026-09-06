@@ -1,0 +1,16 @@
+<nav>
+  <ul>
+    <li><a href="/city-center">City Center</a></li>
+    <li><a href="/districts/business">Business District</a></li>
+    <li><a href="/districts/entertainment">Entertainment District</a></li>
+    <li><a href="/districts/food-drink">Food & Drink</a></li>
+    <li><a href="/districts/services">Services</a></li>
+    <li><a href="/districts/social">Social</a></li>
+    <li><a href="/districts/infrastructure">Infrastructure</a></li>
+    <li><a href="/about">About Sky City</a></li>
+    <li><a href="/auth/login">Login</a></li>
+    <li><a href="/auth/register">Join Sky City</a></li>
+  </ul>
+</nav>
+
+

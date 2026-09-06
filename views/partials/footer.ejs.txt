@@ -1,0 +1,6 @@
+<footer>
+  <p>&copy; <%= new Date().getFullYear() %> Ray’s Up Holding Group, LLC · Sky City</p>
+</footer>
+
+
+
