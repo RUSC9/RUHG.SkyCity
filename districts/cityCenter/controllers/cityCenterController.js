@@ -24,6 +24,15 @@ exports.getAnnouncements = (req, res) => {
   const announcements = cityCenterService.getAnnouncements();
   res.json(announcements);
 };
+exports.addAnnouncement = (req, res) => {
+  const { title, message } = req.body;
+
+  const announcement = cityCenterService.addAnnouncement(title, message);
+
+  res.status(201).json(announcement);
+};
+
+
 
 // Register Consumer
 exports.registerConsumer = (req, res) => {
