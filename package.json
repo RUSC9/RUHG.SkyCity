@@ -1,0 +1,30 @@
+{
+  "name": "ruhg.skycity",
+  "version": "1.0.0",
+  "description": "Sky City is a digital city platform designed to connect small businesses and consumers in a unified online ecosystem. The platform offers commerce, entertainment, delivery services, and on‑demand mobile professionals — all organized into virtual districts that mirror a real metropolitan city.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RUSC9/RUHG.SkyCity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RUSC9/RUHG.SkyCity/issues"
+  },
+  "homepage": "https://github.com/RUSC9/RUHG.SkyCity#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^9.10.0"
+  }
+}
