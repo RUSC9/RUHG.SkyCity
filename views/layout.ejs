@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title><%= title || 'Sky City' %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= typeof title !== 'undefined' ? title : 'Sky City' %></title>
   <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>

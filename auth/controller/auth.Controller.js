@@ -1,20 +1,93 @@
 // auth/controller/auth.Controller.js
   const bcrypt = require("bcrypt");
   const Consumer = require("../models/Consumer");
-   
-// get login page
+  const Business = require("../models/Business"); 
+
+
+//get login page with business and consumer option
 exports.getLoginPage = (req, res) => {
-  res.render("auth/login", { title: "Sky City – Login" });
+  res.render("login", {title: "Sky City Login", layout: false });
 };
+
 
 //get business registration page
 exports.getBusinessRegisterPage = (req, res) => {
-  res.render("auth/register-business", { title: "Sky City – Business Registration" });
+  res.render("register-business", { title: "Sky City – Business Registration", layout: false });
 };
+//handle business registration
+exports.registerBusiness = async(req, res) => {
+  try{ 
+
+    const {businessName, email, contactPhone, password, confirmPassword } = req.body;
+  if (!businessName || !email || !contactPhone || !password || !confirmPassword) {
+    return res.status(400).send("All fields are required.");
+  }
+  if (password !== confirmPassword) {
+    return res.status(400).send("Passwords do not match.");
+  }
+const existingBusiness = await Business.findOne({ email });
+  if (existingBusiness) {
+    return res.status(400) .send("A Business with this email already exists.");
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newBusiness = new Business({
+    businessName,
+    email,
+    contactPhone,
+    password: hashedPassword
+  });
+  await newBusiness.save();
+  return res.status(201) .send("Business registered successfully.");
+  } catch (error) {
+    console.error(error);
+    return res.status(500) .send("Server error.");
+  }
+};
+
+//get business Login Page
+exports.getBusinessLoginPage = (req, res) => {
+  res.render("login-business", { title: "Sky City – Business Login", layout: false });
+};
+
+//handle business login
+exports.loginBusiness = async (req, res) => {
+  try{
+    const {email, password} =req.body;
+    //Make sure both fields were entered
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required.");
+    }
+    //Find the business by email
+    const business = await Business.findOne({email});
+
+    if (!business) {
+      return res.status(401).send("Invalid email or password.");
+    }
+
+    // Compare entered password to hashed password in MongoDB
+    const passwordMatches = await bcrypt.compare(
+      password,
+      business.password
+    );
+
+    if(!passwordMatches) {
+      return res.status(401).send("Invalid email or password.");
+    }
+
+    return res.status(200).render("businessCityCenter", { layout: false});
+  }
+    catch (error){
+      console.error(error);
+      return res.status(500).send("Server error.");
+    }
+  }
+
+
+
 
 //get consumer registration page
 exports.getConsumerRegisterPage = (req, res) => {
-  res.render("register-consumer", { title: "Sky City – Consumer Registration" });
+  res.render("register-consumer", { title: "Sky City – Consumer Registration", layout: false });
 };
 
 //handle consumer registration
@@ -43,3 +116,40 @@ const existingConsumer = await Consumer.findOne({ email });
     return res.status(500) .send("Server error.");
   }
 };
+
+//get consumer Login Page
+exports.getConsumerLoginPage = (req, res) => {
+  res.render("login-consumer", { title: "Sky City – Consumer Login", layout: false});
+};
+
+//handle Consumer login page
+exports.loginConsumer = async (req, res) => {
+  try{
+    const {email, password} =req.body;
+    //Make sure both fields were entered
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required.");
+    }
+    //Find the consumer by email
+    const consumer = await Consumer.findOne({email});
+
+    if (!consumer) {
+      return res.status(401).send("Invalid email or password.");
+    }
+
+    // Compare entered password to hashed password in MongoDB
+    const passwordMatches = await bcrypt.compare(
+      password,
+      consumer.password
+    );
+
+    if(!passwordMatches) {
+      return res.status(401).send("Invalid email or password.");
+    }
+    return res.status(200).render("consumerCityCenter", { layout:false});
+  }
+    catch (error){
+      console.error(error);
+      return res.status(500).send("Server error.");
+    }
+  };
