@@ -73,8 +73,11 @@ exports.loginBusiness = async (req, res) => {
     if(!passwordMatches) {
       return res.status(401).send("Invalid email or password.");
     }
+      //remember that the use is a business
+      req.session.userId = business._id.toString();
+      req.session.role = "business";
 
-    return res.redirect("/city-center/business");
+      return res.redirect("/city-center/business");
   }
     catch (error){
       console.error(error);
@@ -146,7 +149,11 @@ exports.loginConsumer = async (req, res) => {
     if(!passwordMatches) {
       return res.status(401).send("Invalid email or password.");
     }
-    return res.redirect("/city-center/consumer");
+      //remember that the user is a consumer
+      req.session.userId = consumer._id.toString();
+      req.session.role = "consumer";
+
+      return res.redirect("/city-center/consumer");
   }
     catch (error){
       console.error(error);

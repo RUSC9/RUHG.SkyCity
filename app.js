@@ -2,10 +2,24 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//secure login to avoid access by entering url in browser without logging in first
+app.use(
+  session({
+    secret: "sky-city-secret", 
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false
+    }
+  })
+);
+
 app.use(expressLayouts);
 app.set("layout", "layout");
 

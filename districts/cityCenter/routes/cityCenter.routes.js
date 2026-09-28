@@ -5,6 +5,10 @@ const CityCenterController = require("../controllers/cityCenterController");
 // Home page
 router.get("/", CityCenterController.getHomePage);
 
+//Consumer and Business City Centers
+router.get("/consumer", CityCenterController.getConsumerCityCenter);
+router.get("/business", CityCenterController.getBusinessCityCenter);
+
 // Featured sections
 router.get("/featured/businesses", CityCenterController.getFeaturedBusinesses);
 router.get("/featured/entertainment", CityCenterController.getFeaturedEntertainment);

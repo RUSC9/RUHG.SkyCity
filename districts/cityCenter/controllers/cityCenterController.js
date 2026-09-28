@@ -7,6 +7,20 @@ exports.getHomePage = (req, res) => {
   res.render("districts/city-center/index", data);
 };
 
+//Consumer City Center
+exports.getConsumerCityCenter = (req, res) => {
+  res.render("districts/city-center/consumerCityCenter", {
+      layout: false
+});
+};
+
+//Business City Center
+exports.getBusinessCityCenter = (req, res) => {
+  res.render("districts/city-center/businessCityCenter", {
+      layout: false
+});
+};
+
 // Featured Businesses
 exports.getFeaturedBusinesses = (req, res) => {
   const businesses = cityCenterService.getFeaturedBusinesses();
