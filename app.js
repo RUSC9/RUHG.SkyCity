@@ -35,8 +35,16 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // District routes
 app.use("/city-center", require("./districts/cityCenter/routes/cityCenter.routes"));
+
 //Authentication routes
 app.use("/auth", require("./auth/routes/auth.routes"));
+
+// Business listing routes
+ app.use(
+  "/business-listings", 
+  require("./auth/routes/businessListing.routes")
+ );
+
 app.get("/", (req,res) => { res.sendFile(path.join(__dirname,"public", "aboutSkyCity.html"));
 });
 module.exports = app;
