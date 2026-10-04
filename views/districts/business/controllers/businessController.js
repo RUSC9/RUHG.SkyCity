@@ -4,7 +4,7 @@ const BusinessListing = require("../../../../auth/models/businessListing");
 // districts/business/controllers/businessController.js
 exports.getDistrictHome = (req, res) => {
   res.render("districts/business/index", {
-    title: "Sky City – Business District",
+    title: "Sky City | Business District",
   });
 };
 
@@ -23,6 +23,7 @@ exports.getBusinessPage = async (req, res) => {
         req.session.userId === business.businessOwner.toString();
 
     res.render("districts/business/businessPage", {
+      layout: false,
       title: business.businessName || "Sky City Business",
       business: business,
       isOwner: isOwner
