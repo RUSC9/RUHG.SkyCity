@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= business.businessName %> | Sky City</title>
+</head>
+
+<body>
+
+        <header>
+            <h1> <%= business.businessName %></h1>
+
+            <nav>
+                <!-- Business owner view only -->
+                <% if (isOwner) { %>
+                    <a href="/city-center/business">Business City Center</a>
+                    |
+                    <a href="/busness/manage/<%= business._id %>">
+                      Manage Business Listing
+                    </a>
+                <% } else { %>
+                    <a href="/city-center/consumer">Consumer City Center</a>
+                <!-- close Business owner view only -->
+                <% } %>    
+                |
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+
+        <main>
+
+            <section>
+                <h2>Business Information</h2>
+
+                <p>
+                    <strong>Business Category:</strong>
+                    <%= business.businessCategory || "Not provided" %>
+                </p>
+
+                <p>
+                    <strong>Address:</strong>
+                    <%= business.address %>
+                </p>
+
+                <p>
+                    <strong>City:</strong>
+                    <%= business.city %>
+                </p>
+
+                <p>
+                    <strong>State:</strong>
+                    <%= business.state %>
+                </p>
+
+                <p>
+                    <strong>Zip Code:</strong>
+                    <%= business.zipCode %>
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    <%= business.contactPhone %>
+                </p>
+
+                <p>
+                    <strong>Email</strong>
+                    <%= business.ContactEmail %>
+                </p>
+            </section>
+
+            <section>
+                <h2>About This Business</h2>
+
+                <p>
+                    <%= business.description || "Business description coming soon." %>
+                </p>
+            </section>
+
+            <section>
+                <h2>Products & Services</h2>
+
+                <p>
+                    Products, services, menus, pricing, photos, and booking options
+                    will appear here.
+                </p>
+            </section>
+                <!-- Business owner view only -->
+                <% if (isOwner) { %>
+            
+            <section>
+                <h2>Business Owner Tools</h2>
+
+                <p>
+                    This section is available to the business owner.
+                </p>
+
+                <a href="/business/manage/<%= business._id %>">
+                    Manage Business Listing
+                </a>
+            </section>
+                <!-- Close Business owner view only -->
+                <%  } %>
+        </main>
+</body>
+</html>

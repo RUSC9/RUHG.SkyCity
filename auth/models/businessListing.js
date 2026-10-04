@@ -5,6 +5,7 @@ const businessListingSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Business",
             required: true
+            unique: true
         },
 
         businessName: {

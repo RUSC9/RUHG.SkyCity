@@ -1,8 +1,9 @@
-//connect controller to busines Listing model
+//connect controller to business Listing model
 const BusinessListing = require("../models/businessListing");
 
 //Show the create business listing page
-exports.getCreateBusinessListing = (req, res) => {
+exports.getCreateBusinessListing = async (req, res) => {
+    try{
     // Only logged-in business accounts can access this page
     if (
         !req.session ||
@@ -11,14 +12,34 @@ exports.getCreateBusinessListing = (req, res) => {
     ) {
         return res.status(401).send("Business login required.");
     }
-    res.render("business/createBusinessListing", {
-        layout: false
-    });
-};
 
-//Create and save a new business listing
+    //Check whether this business already has a listing
+    const existingListing = await BusinessListing.findOne({
+            businessOwner: req.session.userId
+        });
+    
+    //If a listing already exists, send the owner to it
+        if(existingListing) {
+            return res.redirect(`/business/${existingListing._id}`);
+        }
+    
+    //Otherwise show the create listing form
+        res.render("business/createBusinessListing", {
+            layout: false
+        });
+     } catch (error) {
+      console.error("Error loading business listing page:", error);
+      
+            return res
+                .status(500)
+                .send("Unable to load business listing page.");
+      }
+    };
+
+
+    //Create and save a new business listing
 exports.createBusinessListing = async (req, res) => {
-    try {
+    try{
         //Make sure a business user is logged in 
         if (
            !req.session ||
@@ -28,7 +49,17 @@ exports.createBusinessListing = async (req, res) => {
             return res.status(401).send("Business login required.");
         }
 
-    const {
+        //Prevent the same business account from creating another listing
+        const existingListing = await BusinessListing.findOne({
+            businessOwner: req.session.userId
+        });
+
+        if (existingListing) {
+            return res.redirect(`/business/${existingListing._id}`);
+        }
+
+        //Get listing information from the form
+        const {
         businessName,
         businessCategory,
         description,
@@ -59,9 +90,12 @@ exports.createBusinessListing = async (req, res) => {
         !zipCode ||
         !businessHours
     ) {
-        return res.status(400).send("Please complete all required fields.");
+        return res
+        .status(400)
+        .send("Please complete all required fields.");
     }
 
+    //Create the new business listing
     const newListing = new BusinessListing({
         //Owner comes from the logged-in session
         businessOwner: req.session.userId,
@@ -91,11 +125,16 @@ exports.createBusinessListing = async (req, res) => {
         }
     });
 
-    await newListing.save();
-    
-    return res.redirect("/city-center/business");
-    } catch (error) {
-      console.error("Business listing creation error:", error);
-      return res.status(500).send("Unable to create business listing.");
+        //Save listing to MongoDB
+        await newListing.save();
+
+        //Send the business owner directly to their business page
+        return res.redirect(`/business/${newListing._id}`);
+} catch (error) {
+    console.error("Business listing creation error:", error);
+
+        return res
+            .status(500)
+            .send("Unable to create business listing.");
     }
 };

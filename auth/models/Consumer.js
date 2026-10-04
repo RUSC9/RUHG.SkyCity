@@ -19,6 +19,7 @@ const consumerSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
+            unique: true,
         },
 
         password: {
