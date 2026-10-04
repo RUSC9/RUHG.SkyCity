@@ -45,6 +45,13 @@ app.use("/auth", require("./auth/routes/auth.routes"));
   require("./auth/routes/businessListing.routes")
  );
 
-app.get("/", (req,res) => { res.sendFile(path.join(__dirname,"public", "aboutSkyCity.html"));
+// Business district routes
+ app.use(
+  "/business", 
+  require("./views/districts/business/routes/business.routes")
+ );
+
+app.get("/", (req,res) => { 
+  res.sendFile(path.join(__dirname,"public", "aboutSkyCity.html"));
 });
 module.exports = app;

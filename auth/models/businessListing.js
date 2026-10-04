@@ -4,7 +4,7 @@ const businessListingSchema = new mongoose.Schema(
         businessOwner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Business",
-            required: true
+            required: true,
             unique: true
         },
 
