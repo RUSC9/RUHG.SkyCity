@@ -1,4 +1,4 @@
-const BusinessListing = require("../../../../auth/models/businessListing");
+const BusinessListing = require("../../../auth/models/businessListing");
 
 //Show business district home
 exports.getDistrictHome = (req, res) => {
