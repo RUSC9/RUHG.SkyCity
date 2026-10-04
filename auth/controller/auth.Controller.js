@@ -12,41 +12,76 @@ exports.getLoginPage = (req, res) => {
 
 //get business registration page
 exports.getBusinessRegisterPage = (req, res) => {
-  res.render("register-business", { title: "Sky City – Business Registration", layout: false });
+  res.render("register-business", { title: "Sky City | Business Registration", layout: false });
 };
 //handle business registration
 exports.registerBusiness = async(req, res) => {
   try{ 
 
-    const {businessName, email, contactPhone, password, confirmPassword } = req.body;
-  if (!businessName || !email || !contactPhone || !password || !confirmPassword) {
-    return res.status(400).send("All fields are required.");
+    const {
+      businessName, 
+      email, 
+      contactPhone, 
+      password, 
+      confirmPassword 
+    } = req.body;
+
+    //Make sure required fields are present
+  if (
+    !businessName || 
+    !email || 
+    !contactPhone || 
+    !password || 
+    !confirmPassword
+  ) {
+    return res.status(400).send("Please complete all required fields.");
   }
+
+  //Make sure passwords match
   if (password !== confirmPassword) {
     return res.status(400).send("Passwords do not match.");
   }
-const existingBusiness = await Business.findOne({ email });
+
+  //Prevent duplicate business accounts using the same email
+  const existingBusiness = await Business.findOne({ email });
+  
   if (existingBusiness) {
-    return res.status(400) .send("A Business with this email already exists.");
+    return res
+        .status(400) 
+        .send("A Business with this email already exists.");
   }
+
+  //Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
+
+  //Create the business account
   const newBusiness = new Business({
     businessName,
     email,
     contactPhone,
     password: hashedPassword
   });
+
+  // Save business account to MongoDB
   await newBusiness.save();
-  return res.status(201) .send("Business registered successfully.");
-  } catch (error) {
-    console.error(error);
-    return res.status(500) .send("Server error.");
+  req.session.userId = newBusiness._id.toString();
+  req.session.role = "business";
+
+  //Send new businessto create its listing
+  return res.redirect("/business-listings/create");
+  
+} catch (error){
+  console.error("Business registration error:", error);
+
+  return res
+      .status(500)
+      .send("unable to register business.");
   }
 };
 
 //get business Login Page
 exports.getBusinessLoginPage = (req, res) => {
-  res.render("login-business", { title: "Sky City – Business Login", layout: false });
+  res.render("login-business", { title: "Sky City | Business Login", layout: false });
 };
 
 //handle business login
@@ -90,7 +125,7 @@ exports.loginBusiness = async (req, res) => {
 
 //get consumer registration page
 exports.getConsumerRegisterPage = (req, res) => {
-  res.render("register-consumer", { title: "Sky City – Consumer Registration", layout: false });
+  res.render("register-consumer", { title: "Sky City | Consumer Registration", layout: false });
 };
 
 //handle consumer registration
