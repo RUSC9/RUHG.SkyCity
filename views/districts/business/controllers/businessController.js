@@ -34,3 +34,34 @@ exports.getBusinessPage = async (req, res) => {
        res.status(500) .send("Unable to load business page");
   }
 };
+
+//Business owner manage page controller
+exports.getManageBusinessPage = async (req, res) => {
+  try {
+    const business = await BusinessListing.findById(req.params.id);
+
+    if (!business) {
+      return res.status(404).send("Business listing not found")
+    }
+
+    const isOwner = 
+      req.session &&
+      req.session.role === "business" &&
+      req.session.userId === business.businessOwner.toString();
+
+    if (!isOwner) {
+      return res.status(403).send("You are not authorized to manage this business")
+    }
+
+    res.render("districts/business/manageBusiness",  {
+        layout: false,
+        title: `Manage ${business.businessName}`,
+        business: business
+    });
+  
+  } catch (error) {
+      console.error("Error loading manage business page:", error);
+      res.status(500).send("Unable to load manage business page");
+
+  }
+};

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devuce-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+
+<body>
+
+    <header>
+        <h1> Manage <%= business.businessName %></h1>
+        <p>Business Owner Management</p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>Business Information</h2>
+
+            <p>
+                <strong>Business Name:</strong>
+                <%= business.businessName %>
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                <%= business.businessCategory %>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <%= business.email %>
+            </p>
+
+             <p>
+                <strong>Phone:</strong>
+                <%= business.contactPhone %>
+            </p>
+
+        </section>
+
+        <section>
+            <h2>Manage Your Business</h2>
+
+            <button type="button">
+                Edit Business Listing
+            </button>
+
+            <button type="button">
+                Manage Products / Services
+            </button>
+
+            <button type="button">
+                Manage Photos
+            </button>
+
+            <button type="button">
+                Business Analytics
+            </button>
+        </section>
+    </main>
+</body>
+</html>

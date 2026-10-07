@@ -1,7 +1,8 @@
 // auth/controller/auth.Controller.js
   const bcrypt = require("bcrypt");
   const Consumer = require("../models/Consumer");
-  const Business = require("../models/Business"); 
+  const Business = require("../models/Business");
+  const BusinessListing = require("../models/businessListing"); 
 
 
 //get login page with business and consumer option
@@ -111,8 +112,18 @@ exports.loginBusiness = async (req, res) => {
       //remember that the use is a business
       req.session.userId = business._id.toString();
       req.session.role = "business";
+  //Check whether this business already owns a listing
+  const existingListing = await BusinessListing.findOne({
+      businessOwner: business._id
+  });
 
-      return res.redirect("/city-center/business");
+  if (existingListing) {
+    return res.redirect(`/business/${existingListing._id}`);
+  }
+
+  //No listing yet--send business user to the Business City Center
+  return res.redirect("/city-center/business");
+
   }
     catch (error){
       console.error(error);
