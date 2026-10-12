@@ -77,7 +77,7 @@
     type="text"
     id="street"
     name="street"
-    value=" <%= listing.street || '' %>"
+    value=" <%= listing.address?.street || '' %>"
     required>
 
     <br><br>
@@ -87,7 +87,7 @@
     type="text"
     id="city"
     name="city"
-    value=" <%= listing.city || '' %>"
+    value=" <%= listing.address?.city || '' %>"
     required>
 
     <br><br>
@@ -97,7 +97,7 @@
     type="text"
     id="state"
     name="state"
-    value=" <%= listing.state || '' %>"
+    value=" <%= listing.address?.state || '' %>"
     required>
 
     <br><br>
@@ -107,7 +107,7 @@
     type="text"
     id="zipCode"
     name="zipCode"
-    value=" <%= listing.zipCode || '' %>"
+    value=" <%= listing.address?.zipCode || '' %>"
     required>
 
     <br><br>
@@ -139,7 +139,7 @@
         <input
         type="checkbox"
         name="pickup"
-        <%= listing.pickup ? 'checked' : '' %>>
+        <%= listing.fulfillmentOptions?.pickup ? 'checked' : '' %>>
         Pickup
     </label>
 
@@ -148,7 +148,7 @@
     <label>
         <input type="checkbox"
         name="delivery"
-        <%= listing.delivery ? 'checked' : '' %>>
+        <%= listing.fulfillimentOptions?.delivery ? 'checked' : '' %>>
         Delivery
     </label>
 
@@ -157,7 +157,7 @@
     <label>
         <input type="checkbox"
         name="appointment"
-        <%= listing.appointment ? 'checked' : '' %>>
+        <%= listing.fulfillimentOptions?.appointment ? 'checked' : '' %>>
         Appointment
     </label>
 
@@ -166,7 +166,7 @@
     <label>
         <input type="checkbox"
         name="mobileService"
-        <%= listing.mobileService ? 'checked' : '' %>>
+        <%= listing.fullfillmentOptions?.mobileService ? 'checked' : '' %>>
         Mobile Service
     </label>
 

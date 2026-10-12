@@ -40,23 +40,23 @@
                 </p>
 
                 <p>
-                    <strong>Address:</strong>
-                    <%= business.address %>
+                    <strong>Street Address:</strong>
+                    <%= business.address?.street || '' %>
                 </p>
 
                 <p>
                     <strong>City:</strong>
-                    <%= business.city %>
+                    <%= business.address?.city || '' %>
                 </p>
 
                 <p>
                     <strong>State:</strong>
-                    <%= business.state %>
+                    <%= business.address?.state || '' %>
                 </p>
 
                 <p>
                     <strong>Zip Code:</strong>
-                    <%= business.zipCode %>
+                    <%= business.address?.zipCode || '' %>
                 </p>
 
                 <p>
@@ -66,9 +66,38 @@
 
                 <p>
                     <strong>Email</strong>
-                    <%= business.ContactEmail %>
+                    <%= business.contactEmail || '' %>
+                </p>
+
+                 <p>
+                    <strong>Website</strong>
+                    <%= business.website || '' %>
                 </p>
             </section>
+
+             <section>
+                <h3>Fulfillment Options</h3>
+                <p>
+                    <strong>Pickup:</strong>
+                    <%= business.fulfillmentOptions?.pickup ? "Yes" : "No" %>
+                </p>
+
+                 <p>
+                    <strong>Delivery:</strong>
+                    <%= business.fulfillmentOptions?.delivery ? "Yes" : "No" %>
+                </p>
+
+                 <p>
+                    <strong>Appointment:</strong>
+                    <%= business.fulfillmentOptions?.appointment ? "Yes" : "No" %>
+                </p>
+
+                 <p>
+                    <strong>Mobile Service:</strong>
+                    <%= business.fulfillmentOptions?.mobileService ? "Yes" : "No" %>
+                </p>
+
+             </section>
 
             <section>
                 <h2>About This Business</h2>

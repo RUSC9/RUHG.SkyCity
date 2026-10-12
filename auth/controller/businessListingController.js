@@ -162,7 +162,7 @@ exports.getEditBusinessListing = async (req, res) => {
         }
 
         //Display edit page
-        return res.render("business/editBusinessListing", {
+        return res.render("districts/business/editBusinessListing", {
             listing,
             layout: false
         });
