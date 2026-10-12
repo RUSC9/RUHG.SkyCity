@@ -17,7 +17,7 @@
                 <% if (isOwner) { %>
                     <a href="/city-center/business">Business City Center</a>
                     |
-                    <a href="/busness/manage/<%= business._id %>">
+                    <a href="/business-listings/<%= business._id %>/edit">
                       Manage Business Listing
                     </a>
                 <% } else { %>
@@ -96,7 +96,7 @@
                     This section is available to the business owner.
                 </p>
 
-                <a href="/business/manage/<%= business._id %>">
+                <a href="/business-listings/<%= business._id %>/edit">
                     Manage Business Listing
                 </a>
             </section>

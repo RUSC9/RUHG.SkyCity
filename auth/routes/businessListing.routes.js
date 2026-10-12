@@ -16,4 +16,17 @@ router.post(
     businessListingController.createBusinessListing
 );
 
+//Show the edit business listing page
+router.get(
+    "/:id/edit",
+    businessListingController.getEditBusinessListing
+);
+
+//Save changes to an existing business listing
+router.post(
+    "/:id/edit",
+    businessListingController.updateBusinessListing
+);
+
+
 module.exports = router;

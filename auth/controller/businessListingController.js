@@ -138,3 +138,98 @@ exports.createBusinessListing = async (req, res) => {
             .send("Unable to create business listing.");
     }
 };
+
+
+// Show edit business listing page
+exports.getEditBusinessListing = async (req, res) => {
+    try {
+        //Verify business login
+        if(
+            !req.session ||
+            req.session.role !== "business" ||
+            !req.session.userId
+        ) {
+            return res.status(401).send("Business login required.");
+        }
+        //Find listing belonging to logged-in owner
+        const listing = await BusinessListing.findOne({
+            _id: req.params.id,
+            businessOwner: req.session.userId
+        });
+
+        if (!listing) {
+            return res.status(404).send("Business listing not found.");
+        }
+
+        //Display edit page
+        return res.render("business/editBusinessListing", {
+            listing,
+            layout: false
+        });
+
+        } catch (error) {
+            console.error("Error loading edit business listing:", error);
+
+            return res.status(500).send("Unable to load edit page.");
+
+        }
+    };
+ //Update an existing business listing
+exports.updateBusinessListing = async (req, res) => {
+    try {
+        if(
+            !req.session ||
+            req.session.role !== "business" ||
+            !req.session.userId
+        ) {
+            return res.status(401).send("Business login required.");
+        }
+
+        const listing = await BusinessListing.findOne({
+            _id: req.params.id,
+            businessOwner: req.session.userId
+        });
+
+        if (!listing) {
+            return res.status(404).send("Business listing not found.");
+        }
+
+        const fields = [
+            "businessName",
+            "businessCategory",
+            "description",
+            "contactPhone",
+            "contactEmail",
+            "website",
+            "serviceArea",
+            "businessHours"
+        ];
+
+        for (const field of fields) {
+            if (req.body[field] !== undefined) {
+                listing[field] = req.body[field];
+            }
+        }
+
+        listing.address = {
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zipCode: req.body.zipCode
+        };
+
+        listing.fulfillmentOptions = {
+            pickup: req.body.pickup === "on",
+            delivery: req.body.delivery === "on",
+            appointment: req.body.appointment === "on",
+            mobileService: req.body.mobileService === "on"
+        };
+
+        await listing.save();
+
+        return res.redirect(`/business/${listing._id}`);
+    }   catch (error){
+        console.error("Error updating business listing:", error);
+        return res.status(500).send("Unable to update business listing.");   
+    }
+  };
