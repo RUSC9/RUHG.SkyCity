@@ -131,7 +131,18 @@ exports.loginBusiness = async (req, res) => {
     }
   }
 
+//handle business logout
+exports.handleBusinessLogout = (req, res) => {
+  req.session.destroy ((err) => {
+    if (err) {
+      console.error("Business logout error:", err);
+      return res.status(500).send("Logout failed");
+    }
 
+    res.clearCookie("connect.sid");
+    return res.redirect("/auth/login/business");
+   });
+};
 
 
 //get consumer registration page

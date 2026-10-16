@@ -20,6 +20,12 @@ router.get("/login/business", authController.getBusinessLoginPage);
 //handle business login page
 router.post("/login/business", authController.loginBusiness);
 
+
+//Business logout
+
+//handle business logout
+router.get("/logout", authController.handleBusinessLogout);
+
 //Consumer registration and login
 
 //show consumer registration
@@ -33,6 +39,7 @@ router.get("/login/consumer", authController.getConsumerLoginPage);
 
 //handle consumer login page
 router.post("/login/consumer", authController.loginConsumer);
+
 
 module.exports = router;
 
