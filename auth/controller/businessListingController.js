@@ -149,7 +149,11 @@ exports.getEditBusinessListing = async (req, res) => {
             req.session.role !== "business" ||
             !req.session.userId
         ) {
-            return res.status(401).send("Business login required.");
+            return res.status(401).send(`
+                <h2>Business Login Required</h2>
+                <p>Please log into your Sky City business account to continue.</p>
+                <a href="/auth/login/business">Go to Business Login</a>
+            `);
         }
         //Find listing belonging to logged-in owner
         const listing = await BusinessListing.findOne({
@@ -182,7 +186,11 @@ exports.updateBusinessListing = async (req, res) => {
             req.session.role !== "business" ||
             !req.session.userId
         ) {
-            return res.status(401).send("Business login required.");
+            return res.status(401).send(`
+                <h2>Business Login Required</h2>
+                <p>Please log into your Sky City business account to continue.</p>
+                <a href="/auth/login/business">Go to Business Login</a>
+            `);
         }
 
         const listing = await BusinessListing.findOne({
