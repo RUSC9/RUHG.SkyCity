@@ -21,12 +21,21 @@ exports.getBusinessPage = async (req, res) => {
         req.session &&
         req.session.role === "business" &&
         req.session.userId === business.businessOwner.toString();
+    const visibleItems = isOwner
+        ?(business.items || [])
+        :(business.items || []).filter(
+          (item) =>
+            item.moderationStatus ==="approved" && 
+            item.isAvailable === true
+          
+        );
 
-    res.render("districts/business/businessPage", {
+   return res.render("districts/business/businessPage", {
       layout: false,
       title: business.businessName || "Sky City Business",
       business: business,
-      isOwner: isOwner
+      isOwner: isOwner,
+      visibleItems: visibleItems
     });
 
   } catch (error) {

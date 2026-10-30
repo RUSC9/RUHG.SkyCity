@@ -28,5 +28,28 @@ router.post(
     businessListingController.updateBusinessListing
 );
 
+// Display the Add Product or Service form
+router.get(
+    "/:id/items/new",
+    businessListingController.getAddBusinessItemForm
+);
+
+// Add a product or service
+router.post(
+    "/:id/items",
+    businessListingController.addBusinessItem
+);
+
+//Edit a product or a service
+router.post(
+    "/:id/items/:itemId/edit",
+    businessListingController.updateBusinessItem
+);
+
+//Delete a product or service
+//router.post(
+  //  "/:id/items/:itemId/delete",
+    //businessListingController.deleteBusinessItem
+//);
 
 module.exports = router;

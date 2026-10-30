@@ -241,3 +241,186 @@ exports.updateBusinessListing = async (req, res) => {
         return res.status(500).send("Unable to update business listing.");   
     }
   };
+
+    // Display Add Product or Service form
+    exports.getAddBusinessItemForm = async (req, res) => {
+        try{
+            // Verify business authentication
+            if(
+                !req.session ||
+                req.session.role !== "business" ||
+                !req.session.userId
+            ) {
+                return res.status(401).send("Business login required.");
+            }
+    //Verify ownership of the listing
+            const listing = await BusinessListing.findOne({
+                _id: req.params.id,
+                businessOwner: req.session.userId
+            });
+
+            if (!listing) {
+                return res.status(404).send("Business listing not found or access denied.");
+            }
+
+            //Display the form
+            return res.render("districts/business/addBusinessItem", {
+                layout: false,
+                title: "Add Product or Service",
+                business: listing
+            });
+
+        } catch (error){
+            console.error("Error loading item form:", error)
+            return res.status(500).send("Unable to load item form.");
+        }
+    };
+
+    //Add a product or service to a business listing
+    exports.addBusinessItem = async (req, res) => {
+        try{
+            // Verify business login
+            if(
+                !req.session || 
+                req.session.role !== "business" ||
+                !req.session.userId
+            ) {
+                return res.status(401).send("Business login required.");
+            }
+            // Find the listing owned by this business
+            const listing = await BusinessListing.findOne({
+                _id: req.params.id,
+                businessOwner: req.session.userId
+            });
+
+            if (!listing) {
+                return res.status(404).send("Business listing not found.");
+            }
+
+            // Get the product or service information
+            const{
+                name,
+                itemType,
+                description,
+                price,
+                imageUrl,
+                category
+            } = req.body;
+
+            if (
+                !name ||
+                !name.trim() ||
+                !["product", "service"].includes(itemType)
+            ) {
+                return res.status(400).send("Valid item name and type required.");
+            }
+            
+            // Add the item to the listing
+            listing.items.push({
+                name: name.trim(),
+                itemType,
+                description,
+                price: price === "" || price == null ? undefined : price,
+                imageUrl,
+                category,
+                isAvailable: true,
+                moderationStatus: "pending"
+            });
+            // Save to MongoDB
+            await listing.save();
+            
+            return res.redirect(`/business/${listing._id}`);
+
+        } catch (error) {
+            console.error("Error adding business item:", error);
+            return res.status(500) .send("Unable to add business item.")
+        }
+    };
+
+   // Update an existing product or service
+exports.updateBusinessItem = async (req, res) => {
+try {
+// Verify business login
+if (
+!req.session ||
+req.session.role !== "business" ||
+!req.session.userId
+) {
+return res.status(401).send("Business login required.");
+}
+
+// Verify listing ownership
+const listing = await BusinessListing.findOne({
+_id: req.params.id,
+businessOwner: req.session.userId
+});
+
+if (!listing) {
+return res.status(404).send("Business listing not found.");
+}
+
+// Find the product or service
+const item = listing.items.id(req.params.itemId);
+
+if (!item) {
+return res.status(404).send("Product or service not found.");
+}
+
+const allowedFields = [
+"name",
+"itemType",
+"description",
+"price",
+"imageUrl",
+"category"
+];
+
+// Validate submitted values
+if (
+req.body.name !== undefined &&
+(typeof req.body.name !== "string" ||
+!req.body.name.trim())
+) {
+return res.status(400).send("Valid item name required.");
+}
+
+if (
+req.body.itemType !== undefined &&
+!["product", "service"].includes(req.body.itemType)
+) {
+return res.status(400).send("Invalid item type.");
+}
+
+// Update only permitted fields
+let changed = false;
+
+for (const field of allowedFields) {
+if (req.body[field] !== undefined) {
+const value = req.body[field];
+
+if (field === "name") {
+item[field] = value.trim();
+} else if (field === "price" && value === "") {
+item[field] = undefined;
+} else {
+item[field] = value;
+}
+
+changed = true;
+}
+}
+
+// Changed items must be moderated again
+if (changed) {
+item.moderationStatus = "pending";
+}
+
+await listing.save();
+
+return res.redirect(`/business/${listing._id}`);
+
+} catch (error) {
+console.error("Error updating business item:", error);
+return res.status(500).send("Unable to update business item.");
+}
+};

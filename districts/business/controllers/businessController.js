@@ -21,11 +21,23 @@ exports.getBusinessPage = async (req, res) => {
       req.session.role === "business" &&
       req.session.userId === business.businessOwner.toString();
 
+// Only approved and available items are public
+    const visibleItems = isOwner
+     ? business.items
+     : business.items.filter(
+      (item) =>
+     item.moderationStatus === "approved" &&
+     item.isAvailable === true
+);
     res.render("districts/business/businessPage", {
       layout: false,
       title: business.businessName || "Sky City Business",
-      business: business,
-      isOwner: isOwner
+      business: {
+        ...business.toObject(),
+        items: visibleItems
+},
+      isOwner: isOwner,
+      visibleItems: visibleItems
     });
 
   } catch (error) {

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport"
+
+content=" width=device-width,initial-scale=1.0">
+<title> Add Product or Service | Sky City</title>
+</head>
+
+<body>
+
+    <main>
+        <h1>Add Product or Service</h1>
+<p>
+    Business: <%=business.businessName %>
+</p>
+ <form
+   action="/business-listings/<%=business._id %>/items"
+   method="POST"
+   >
+
+<div>
+    <label 
+    for="name"> Item Name</label>
+    <input
+    type="text"
+    id="name"
+    name="name"
+    required
+    maxlength="150"
+    >
+</div>
+
+<div>
+    <label
+        for="itemType">Item Type</label>
+    <select 
+    id="itemType" 
+    name="itemType"
+    required>
+<option
+value="">Select Type</option>
+<option
+value="product">Product</option>
+<option
+value="service">Service</option>
+
+
+</select>
+</div> 
+
+<div> 
+    <label
+    for="category">Category</label>
+    <input
+    type="text"
+    id="category"
+    name="category"
+    >
+</div>
+
+<div>
+<label
+for="description">Description</label>
+<textarea
+id="description"
+name="description"
+rows="5"
+></textarea>
+</div>
+
+<div>
+    <label
+for="price">Price($)</label>
+<input
+type="number"
+id="price"
+name="price"
+min="0"
+step="0.01"
+>
+</div>
+
+<div>
+    <label
+    for="imageUrl">Image URL</label>
+    <input
+    type="url"
+    id="imageUrl"
+    name="imageUrl"
+    placeholder="https://example.com/image.jpg">
+</div>
+
+<p>
+    Submitted items will remain pending until content moderation is completed.
+</p>
+
+<button
+type= "submit">Add Product or Service</button></form>
+   <p>
+    <a href="/business/<%=business.id%>">
+        Return to Business Page
+    </a>
+   </p> 
+</main>
+</body>
+</html>

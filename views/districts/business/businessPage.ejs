@@ -105,13 +105,31 @@
             </section>
 
             <section>
-                <h2>Products & Services</h2>
+                <h2>Products &amp; Services</h2>
 
-                <p>
-                    Products, services, menus, pricing, photos, and booking options
-                    will appear here.
-                </p>
-            </section>
+                <% if (visibleItems && visibleItems.length > 0) { %>
+                <% visibleItems.forEach((item) =>{ %>
+                    <article>
+                        <h3><%= item.name %></h3>
+                        <p><%= item.description || "" %></p>
+
+                        <% if (item.price !=null) { %>
+                        <p>Price: $<%=
+                        Number(item.price).toFixed(2) %></p>
+                        <%}%>
+
+
+                <% if (isOwner) { %>
+                 <p>Status:<%= item.moderationStatus %></p>
+                <%}%>
+                    </article>
+                <% }); %>
+                <%} else {%>
+                    <p>No products or services available yet.</p>
+                <%} %>
+                </section>
+
+                 
                 <!-- Business owner view only -->
                 <% if (isOwner) { %>
             
@@ -125,6 +143,11 @@
                 <a href="/business-listings/<%= business._id %>/edit">
                     Manage Business Listing
                 </a>
+              <br>
+                <a href="/business-listings/<%= business._id %>/items/new">
+                    Add Product or Service
+                </a>
+
             </section>
                 <!-- Close Business owner view only -->
                 <%  } %>

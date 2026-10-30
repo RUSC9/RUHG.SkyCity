@@ -107,7 +107,47 @@ const businessListingSchema = new mongoose.Schema(
                 type: String
             }
         ],
-        
+
+        items: [
+            {
+                name: {
+                    type: String,
+                    required: true,
+                    trim: true
+                },
+        itemType: {
+            type: String,
+            enum: ["product", "service"],
+            required: true
+        },
+        description: {
+            type: String,
+            trim: true
+        },
+        price: {
+            type: Number,
+            min: 0
+        },
+        imageUrl: {
+            type: String,
+            trim: true
+          },
+          category: {
+            type: String,
+            trim: true
+          },
+          isAvailable: {
+            type: Boolean,
+            default: true
+          },
+          moderationStatus: {
+            type: String,
+            enum: ["pending", "approved", "flagged", "rejected"],
+            default: "pending"
+          }
+         }
+        ],
+
         isActive: {
             type: Boolean,
             default: true
