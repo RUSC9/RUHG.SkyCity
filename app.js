@@ -36,8 +36,16 @@ app.use(express.static(path.join(__dirname, "public")));
 // District routes
 app.use("/city-center", require("./districts/cityCenter/routes/cityCenter.routes"));
 
-//Authentication routes
+// Authentication routes
 app.use("/auth", require("./auth/routes/auth.routes"));
+
+// Administrator moderation routes
+const adminModerationRoutes = require("./auth/routes/adminModeration.routes");
+app.use("/admin", adminModerationRoutes);
+
+// Administrator management routes
+const adminRoutes = require("./auth/routes/admin.routes");
+app.use("/admin", adminRoutes);
 
 // Business listing routes
  app.use(

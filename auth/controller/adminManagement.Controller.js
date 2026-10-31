@@ -1,0 +1,166 @@
+  const Admin = require("../models/Admin");
+  const bcrypt = require("bcrypt"); 
+// Sky City Administrator Management
+// Handles administrator and delegated staff accounts.
+
+// Staff account creation and supervisor
+// validation will be implemented here.
+
+const STAFF_ROLE_MAP = Object.freeze({
+ceo: {
+staffRole: "ceo_staff",
+division: "executive"
+},
+consumer_gm: {
+staffRole: "consumer_staff",
+division: "consumer"
+},
+business_gm: {
+staffRole: "business_staff",
+division: "business"
+}
+});
+
+const MAX_STAFF_PER_MANAGER = 20;
+
+const createStaffAccount = async (req, res) => {
+    let reservedManagerId = null;
+try {
+// Verify the authenticated administrator
+const managerId = req.session?.adminId;
+
+if (!managerId) {
+return res.status(401).json({
+message: "Administrator login required."
+});
+}
+
+const manager = await Admin.findById(managerId);
+
+if (!manager || !manager.isActive) {
+return res.status(403).json({
+message: "Administrator access denied."
+});
+}
+
+const roleConfig = STAFF_ROLE_MAP[manager.role];
+
+if ( 
+!roleConfig ||
+manager.division !== roleConfig.division
+) {
+return res.status(403).json({
+message: "Not authorized to create staff accounts."
+});
+}
+
+// Additional validation will be added next.
+
+const { email, password } = req.body;
+
+if (
+typeof email !== "string" ||
+!email.trim() ||
+typeof password !== "string" ||
+password.length < 12
+) {
+return res.status(400).json({
+message: "A valid email and password of at least 12 characters are required."
+});
+}
+
+const normalizedEmail = email.trim().toLowerCase();
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailPattern.test(normalizedEmail)) {
+return res.status(400).json({
+message: "Please provide a valid email address."
+});
+}
+const existingAccount = await Admin.findOne({
+email: normalizedEmail
+});
+
+if (existingAccount) {
+return res.status(409).json({
+message: "An administrator account already exists with this email."
+});
+}
+// Reserve a staff position only after validation
+const reservedManager = await Admin.findOneAndUpdate(
+{
+_id: manager._id,
+role: manager.role,
+division: roleConfig.division,
+isActive: true,
+staffCount: { $gte: 0, $lt: MAX_STAFF_PER_MANAGER }
+},
+{
+$inc: { staffCount: 1 }
+},
+{
+new: true
+}
+);
+
+if (!reservedManager) {
+return res.status(403).json({
+message: "This manager has reached the 20-staff account limit."
+});
+}
+ reservedManagerId = reservedManager._id;
+const hashedPassword = await bcrypt.hash(password, 12);
+const staffAccount = new Admin({
+email: normalizedEmail,
+password: hashedPassword,
+role: roleConfig.staffRole,
+division: roleConfig.division,
+managerId: manager._id,
+createdBy: manager._id,
+permissions: [
+"view_pending",
+"edit_pending",
+"submit_review_notes"
+],
+isActive: false
+});
+await staffAccount.save();
+let reservedManagerId = null;
+
+return res.status(201).json({
+message: "Staff account created successfully. Awaiting activation.",
+staffId: staffAccount._id,
+role: staffAccount.role,
+division: staffAccount.division,
+isActive: staffAccount.isActive
+});
+} catch (error) {
+console.error("Staff creation error:", error);
+
+if (reservedManagerId) {
+try {
+await Admin.updateOne(
+{
+_id: reservedManagerId,
+staffCount: { $gt: 0 }
+},
+{
+$inc: { staffCount: -1 }
+}
+);
+} catch (rollbackError) {
+console.error("Staff count rollback failed:", rollbackError);
+}
+}
+
+return res.status(error.code === 11000 ? 409 : 500).json({
+message:
+error.code === 11000
+? "An administrator account already exists with this email."
+: "Unable to create staff account."
+});
+}
+};
+module.exports = {
+    createStaffAccount
+};
