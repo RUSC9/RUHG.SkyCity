@@ -7,6 +7,8 @@ const adminManagementController = require(
 const { requireAdmin } = require("../../core/middleware/adminAuthorization");
 const requireAdminLogin = requireAdmin;
 const {loginAdmin} = require("../controller/adminAuthController");
+const Consumer = require("../models/Consumer");
+const Business = require("../models/Business");
 //Administrator login
 //Display administrator login page
 router.get("/login", (req, res) =>{
@@ -16,14 +18,29 @@ router.get("/login", (req, res) =>{
 });
 router.post("/login", loginAdmin);
 // Protected administrator dashboard
-router.get("/dashboard", requireAdminLogin, (req, res) => {
-const admin = req.session.admin;
+router.get("/dashboard", requireAdminLogin, async (req, res) => {
+  try {
+    const admin = req.session.admin;
 
-return res.render("admin/dashboard", {
-layout: false,
-role: admin.role,
-division: admin.division
-});
+    // Retrieve actual account totals from MongoDB
+    const [totalConsumers, totalBusinesses] = await Promise.all([
+      Consumer.countDocuments(),
+      Business.countDocuments()
+    ]);
+
+    return res.render("admin/dashboard", {
+      layout: false,
+      role: admin.role,
+      division: admin.division,
+      totalConsumers,
+      totalBusinesses,
+      totalSubscribers: totalConsumers + totalBusinesses
+    });
+
+  } catch (error) {
+    console.error("Admin dashboard error:", error);
+    return res.status(500).send("Unable to load administrator dashboard.");
+  }
 });
 
 // Require an authenticated administrator.
