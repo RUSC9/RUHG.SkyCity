@@ -17,6 +17,18 @@ router.get("/login", (req, res) =>{
     });
 });
 router.post("/login", loginAdmin);
+// Administrator logout
+router.post("/logout", requireAdminLogin, (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      console.error("Administrator logout error:", error);
+      return res.status(500).send("Unable to log out.");
+    }
+
+    res.clearCookie("connect.sid");
+    return res.redirect("/admin/login");
+  });
+});
 // Protected administrator dashboard
 router.get("/dashboard", requireAdminLogin, async (req, res) => {
   try {
