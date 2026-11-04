@@ -4,11 +4,18 @@ const router = express.Router();
 const adminManagementController = require(
 "../controller/adminManagement.Controller"
 );
+const {
+  updateDepartmentCapacity
+} = require("../controller/departmentManagementController");
 const { requireAdmin } = require("../../core/middleware/adminAuthorization");
 const requireAdminLogin = requireAdmin;
 const {loginAdmin} = require("../controller/adminAuthController");
 const Consumer = require("../models/Consumer");
 const Business = require("../models/Business");
+const {
+  ensureCsrfToken,
+  requireAdminCsrf
+} = require("../../core/middleware/adminCsrf");
 //Administrator login
 //Display administrator login page
 router.get("/login", (req, res) =>{
@@ -17,8 +24,15 @@ router.get("/login", (req, res) =>{
     });
 });
 router.post("/login", loginAdmin);
+// CEO - Update Executive Department Staffing Capacity
+router.patch(
+  "/departments/:code/capacity",
+  requireAdminLogin,
+  requireAdminCsrf,
+  updateDepartmentCapacity
+);
 // Administrator logout
-router.post("/logout", requireAdminLogin, (req, res) => {
+router.post("/logout", requireAdminLogin, requireAdminCsrf, (req, res) => {
   req.session.destroy((error) => {
     if (error) {
       console.error("Administrator logout error:", error);
@@ -30,7 +44,7 @@ router.post("/logout", requireAdminLogin, (req, res) => {
   });
 });
 // Protected administrator dashboard
-router.get("/dashboard", requireAdminLogin, async (req, res) => {
+router.get("/dashboard", requireAdminLogin, ensureCsrfToken, async (req, res) => {
   try {
     const admin = req.session.admin;
 

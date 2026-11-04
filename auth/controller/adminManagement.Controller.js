@@ -93,7 +93,12 @@ _id: manager._id,
 role: manager.role,
 division: roleConfig.division,
 isActive: true,
-staffCount: { $gte: 0, $lt: MAX_STAFF_PER_MANAGER }
+$expr: {
+  $lt: [
+    { $ifNull: ["$staffCount", 0] },
+    { $ifNull: ["$staffLimit", 20] }
+  ]
+}
 },
 {
 $inc: { staffCount: 1 }
@@ -105,7 +110,7 @@ new: true
 
 if (!reservedManager) {
 return res.status(403).json({
-message: "This manager has reached the 20-staff account limit."
+message: "This manager has reached their authorized staffing capacity."
 });
 }
  reservedManagerId = reservedManager._id;

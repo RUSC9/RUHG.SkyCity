@@ -36,10 +36,14 @@ ref: "Admin",
 default: null
 },
 staffCount: {
-type: Number,
-default: 0,
-min: 0,
-max: 20
+  type: Number,
+  default: 0,
+  min: 0
+},
+staffLimit: {
+  type: Number,
+  default: 20,
+  min: 0
 },
 createdBy: {
 type: mongoose.Schema.Types.ObjectId,

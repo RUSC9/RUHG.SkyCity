@@ -162,29 +162,56 @@ box-shadow:
   }
 }
 
+.logout-form {
+  margin: 0;
+}
+
+.admin-logout-btn {
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(126, 87, 255, 0.45);
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+
+  color: #4831a5;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+
+  box-shadow: 0 5px 20px rgba(126, 87, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.admin-logout-btn:hover {
+  background: linear-gradient(135deg, #7c5cff, #ff1493);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.25);
+  transform: translateY(-2px);
+}
+
+.admin-logout-btn:focus-visible {
+  outline: 3px solid #0077ff;
+  outline-offset: 3px;
+}
+
 </style>
 </head>
 <body>
 <main class="dashboard">
     <!-- Administrator Logout Button -->
-<form action="/admin/logout" method="POST"
-      style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+<form action="/admin/logout" method="POST" class="logout-form">
+  <input
+    type="hidden"
+    name="_csrf"
+    value="<%= adminCsrfToken %>"
+  >
 
-  <button type="submit"
-          style="
-            background: linear-gradient(135deg, #102b66, #4169e1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.7);
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16,43,102,0.2);
-          ">
-    🚪 Administrator Logout
+  <button type="submit" class="admin-logout-btn">
+    ⏻ &nbsp; Sign Out
   </button>
-
 </form>
 <h1>Sky City Administration</h1>
 <p>Authorized Management Dashboard</p>

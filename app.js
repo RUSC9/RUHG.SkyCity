@@ -1,6 +1,11 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+// Trust the first reverse proxy in production.
+// Required for secure session cookies behind an HTTPS proxy.
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 
