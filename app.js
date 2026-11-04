@@ -11,11 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 //secure login to avoid access by entering url in browser without logging in first
 app.use(
   session({
-    secret: "sky-city-secret", 
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false
+      httpOnly:true,
+      secure: process.env.NODE_ENV ==="production",
+      sameSite: "lax",
+      maxAge: 1000*60*60*2
     }
   })
 );
@@ -49,17 +52,17 @@ app.use("/admin", adminRoutes);
 
 // Business listing routes
  app.use(
-  "/business-listings", 
+  "/business-listings",
   require("./auth/routes/businessListing.routes")
  );
 
 // Business district routes
  app.use(
-  "/business", 
+  "/business",
   require("./views/districts/business/routes/business.routes")
  );
 
-app.get("/", (req,res) => { 
+app.get("/", (req,res) => {
   res.sendFile(path.join(__dirname,"public", "aboutSkyCity.html"));
 });
 module.exports = app;

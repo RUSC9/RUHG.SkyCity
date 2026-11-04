@@ -27,7 +27,7 @@ const createStaffAccount = async (req, res) => {
     let reservedManagerId = null;
 try {
 // Verify the authenticated administrator
-const managerId = req.session?.adminId;
+const managerId = req.session?.admin?.id;
 
 if (!managerId) {
 return res.status(401).json({
@@ -125,7 +125,7 @@ permissions: [
 isActive: false
 });
 await staffAccount.save();
-let reservedManagerId = null;
+reservedManagerId = null;
 
 return res.status(201).json({
 message: "Staff account created successfully. Awaiting activation.",
@@ -161,6 +161,181 @@ error.code === 11000
 });
 }
 };
+const createExecutiveManager = async (req, res) => {
+try {
+const ceoId = req.session?.admin?.id;
+
+if (!ceoId) {
+return res.status(401).json({
+message: "Administrator login required."
+});
+}
+
+const ceo = await Admin.findById(ceoId);
+
+if (
+!ceo ||
+!ceo.isActive ||
+ceo.role !== "ceo" ||
+ceo.division !== "executive"
+) {
+return res.status(403).json({
+message: "CEO authorization required."
+});
+}
+const { email, password, managedDepartments } = req.body;
+
+if (
+typeof email !== "string" ||
+typeof password !== "string" ||
+!Array.isArray(managedDepartments)
+) {
+return res.status(400).json({
+message: "Email, password, and managed departments are required."
+});
+}
+
+const allowedDepartments = [
+"accounting",
+"payment_processing",
+"payroll",
+"marketing_sales",
+"corporate_administration",
+"human_resources",
+"technology",
+"cybersecurity"
+];
+
+const invalidDepartment = managedDepartments.some(
+department => !allowedDepartments.includes(department)
+);
+
+if (managedDepartments.length === 0 || invalidDepartment) {
+return res.status(400).json({
+message: "A valid executive department assignment is required."
+});
+}
+
+const normalizedEmail = email.trim().toLowerCase();
+
+if (!normalizedEmail.includes("@")) {
+return res.status(400).json({
+message: "A valid email address is required."
+});
+}
+if (password.length < 12) {
+return res.status(400).json({
+message: "Password must be at least 12 characters."
+});
+}
+const existingAdmin = await Admin.findOne({
+email: normalizedEmail
+});
+
+if (existingAdmin) {
+return res.status(409).json({
+message: "An administrator account with this email already exists."
+});
+}
+const hashedPassword = await bcrypt.hash(password, 12);
+
+const executiveManager = new Admin({
+email: normalizedEmail,
+password: hashedPassword,
+role: "executive_manager",
+division: "executive",
+department: null,
+managedDepartments,
+managerId: ceo._id,
+createdBy: ceo._id,
+permissions: [
+"view_department_dashboard",
+"manage_department_staff",
+"manage_department_operations"
+],
+isActive: false
+});
+
+await executiveManager.save();
+
+return res.status(201).json({
+message: "Executive manager account created successfully. Awaiting activation.",
+managerId: executiveManager._id,
+role: executiveManager.role,
+division: executiveManager.division,
+managedDepartments: executiveManager.managedDepartments,
+isActive: executiveManager.isActive
+});
+} catch (error) {
+console.error("Create executive manager error:", error);
+
+if (error.code === 11000) {
+return res.status(409).json({
+message: "An administrator account with this email already exists."
+});
+}
+
+return res.status(500).json({
+message: "Unable to create executive manager."
+});
+}
+};
+
+const activateExecutiveManager = async (req, res) => {
+try {
+const ceoId = req.session?.admin?.id;
+const { managerId } = req.params;
+
+if (!ceoId) {
+return res.status(401).json({
+message: "Administrator login required."
+});
+}
+
+const ceo = await Admin.findById(ceoId);
+
+if (
+!ceo ||
+!ceo.isActive ||
+ceo.role !== "ceo" ||
+ceo.division !== "executive"
+) {
+return res.status(403).json({
+message: "CEO authorization required."
+});
+}
+
+const executiveManager = await Admin.findOne({
+_id: managerId,
+role: "executive_manager",
+division: "executive"
+});
+
+if (!executiveManager) {
+return res.status(404).json({
+message: "Executive manager account not found."
+});
+}
+
+executiveManager.isActive = true;
+await executiveManager.save();
+
+return res.status(200).json({
+message: "Executive manager activated successfully.",
+managerId: executiveManager._id,
+isActive: executiveManager.isActive
+});
+} catch (error) {
+console.error("Activate executive manager error:", error);
+
+return res.status(500).json({
+message: "Unable to activate executive manager."
+});
+}
+};
+
 module.exports = {
-    createStaffAccount
+    createStaffAccount,
+    createExecutiveManager,
+    activateExecutiveManager
 };

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+</head>
+<body>
+<h1>Sky City Administration</h1>
+<h2>Content Moderation Queue</h2>
+
+<% if (reviewItems.length === 0) { %>
+<p>No items currently require review.</p>
+<% } else { %>
+<% reviewItems.forEach(({ businessName, item }) => { %>
+<section>
+<h3><%= item.name %></h3>
+<p>Business: <%= businessName %></p>
+<p>Type: <%= item.itemType %></p>
+<p>Description: <%= item.description %></p>
+<p>Status: <%= item.moderationStatus %></p>
+<p>Reason: <%= item.moderationReason || "Not provided" %></p>
+<hr>
+</section>
+<% }); %>
+<% } %>
+</body>
+</html>

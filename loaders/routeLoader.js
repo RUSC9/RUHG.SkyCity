@@ -16,6 +16,9 @@ module.exports = (app) => {
   // Auth
   app.use("/auth", require("../auth/routes/auth.routes"));
 
+  // Administrator authentication and management
+  app.use("/admin", require("../auth/routes/admin.routes"));
+
   // Root redirect
   app.get("/", (req, res) => res.redirect("/city-center"));
 };

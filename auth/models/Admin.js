@@ -21,6 +21,8 @@ enum: [
 "ceo",
 "consumer_gm",
 "business_gm",
+"executive_manager",
+"executive_staff",
 "ceo_staff",
 "consumer_staff",
 "business_staff"
@@ -49,7 +51,10 @@ type: [String],
 enum: [
 "view_pending",
 "edit_pending",
-"submit_review_notes"
+"submit_review_notes",
+"view_department_dashboard",
+"manage_department_staff",
+"manage_department_operations"
 ],
 default: []
 },
@@ -59,9 +64,37 @@ enum: ["executive", "consumer", "business"],
 required: true,
 immutable: true
 },
+department: {
+type: String,
+enum: [
+"accounting",
+"payment_processing",
+"payroll",
+"marketing_sales",
+"corporate_administration",
+"human_resources",
+"technology",
+"cybersecurity"
+],
+default: null
+},
+managedDepartments: {
+type: [String],
+enum: [
+"accounting",
+"payment_processing",
+"payroll",
+"marketing_sales",
+"corporate_administration",
+"human_resources",
+"technology",
+"cybersecurity"
+],
+default: []
+},
 isActive: {
 type: Boolean,
-default: true
+default: false
 }
 },
 {

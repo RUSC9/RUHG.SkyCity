@@ -144,6 +144,20 @@ const businessListingSchema = new mongoose.Schema(
             type: String,
             enum: ["pending", "approved", "flagged", "rejected"],
             default: "pending"
+          },
+          moderationReason: {
+            type: String,
+            trim: true,
+            default: ""
+          },
+          moderatedAt: {
+            type: Date,
+            default: null
+          },
+          moderatedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Admin",
+            default: null
           }
          }
         ],
