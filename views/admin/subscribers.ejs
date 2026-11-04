@@ -151,10 +151,15 @@
       <tbody>
         <% consumers.forEach(consumer => { %>
           <tr class="account-row" style="border-bottom: 1px solid #dce8f5;">
-            <td style="padding: 12px;">
-              <%= consumer.firstName || "" %>
-              <%= consumer.lastName || "" %>
-            </td>
+          <td style="padding: 12px;">
+  <a
+    href="/admin/subscribers/consumer/<%= consumer._id %>"
+    style="color: #102b60; font-weight: bold; text-decoration: none;"
+  >
+    <%= consumer.firstName || "" %>
+    <%= consumer.lastName || "" %>
+  </a>
+</td>
 
             <td style="padding: 12px;">
               <%= consumer.email %>

@@ -89,7 +89,46 @@ const [
     return res.status(500).send("Unable to load subscriber management.");
   }
 });
+// CEO - Individual Consumer Account Details
+router.get("/subscribers/consumer/:id", requireAdminLogin, async (req, res) => {
+  try {
+    const admin = req.session.admin;
 
+    // Only the CEO can access individual account details
+    if (!admin || admin.role !== "ceo") {
+      return res.status(403).send("Access denied.");
+    }
+
+    // Validate the consumer account ID
+    const mongoose = require("mongoose");
+
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).send("Invalid consumer account ID.");
+    }
+
+    // Retrieve consumer information without sensitive credentials
+    const consumer = await Consumer.findById(req.params.id)
+      .select("firstName lastName email isActive createdAt")
+      .lean();
+
+    if (!consumer) {
+      return res.status(404).send("Consumer account not found.");
+    }
+
+    // Display the individual consumer account
+    return res.render("admin/consumerDetails", {
+      layout: false,
+      consumer
+    });
+
+  } catch (error) {
+    console.error("Consumer account details error:", error);
+
+    return res.status(500).send(
+      "Unable to load consumer account details."
+    );
+  }
+});
 // Require an authenticated administrator.
 // The controller also verifies the manager's role and division.
 // Administrator staff account creation
