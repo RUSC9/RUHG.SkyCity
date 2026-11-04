@@ -43,6 +43,34 @@ router.get("/dashboard", requireAdminLogin, async (req, res) => {
   }
 });
 
+// CEO Subscriber Management
+router.get("/subscribers", requireAdminLogin, async (req, res) => {
+  try {
+    const admin = req.session.admin;
+
+    // Restrict subscriber management to the CEO
+    if (!admin || admin.role !== "ceo") {
+      return res.status(403).send("Access denied.");
+    }
+
+    const [totalConsumers, totalBusinesses] = await Promise.all([
+      Consumer.countDocuments(),
+      Business.countDocuments()
+    ]);
+
+    return res.render("admin/subscribers", {
+      layout: false,
+      totalConsumers,
+      totalBusinesses,
+      totalSubscribers: totalConsumers + totalBusinesses
+    });
+
+  } catch (error) {
+    console.error("Subscriber management error:", error);
+    return res.status(500).send("Unable to load subscriber management.");
+  }
+});
+
 // Require an authenticated administrator.
 // The controller also verifies the manager's role and division.
 // Administrator staff account creation
