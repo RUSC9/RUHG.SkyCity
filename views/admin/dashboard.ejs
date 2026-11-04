@@ -7,22 +7,161 @@
 <style>
 body {
 font-family: Arial, sans-serif;
-background: #101c35;
-color: white;
+background:
+linear-gradient(
+rgba(114, 200, 255, 0.12),
+rgba(234, 248, 255, 0.18)
+),
+url('/images/skycity-executive-office.png')
+center center / cover no-repeat;
+
+background-attachment: fixed;
+color: #102b60;
 margin: 0;
 padding: 30px;
+min-height: 100vh;
+box-sizing: border-box;
 }
 .dashboard {
 max-width: 900px;
 margin: auto;
 }
 .panel {
-background: #1d3050;
-padding: 20px;
+background: rgba(255, 255, 255, 0.68);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+
+border: 1px solid rgba(255, 255, 255, 0.85);
+border-radius: 18px;
+
+padding: 24px;
 margin-top: 20px;
-border-radius: 12px;
+
+box-shadow:
+0 8px 32px rgba(22, 91, 160, 0.15),
+inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
-h1 { color: #e6b85c; }
+
+h1 {
+color: #102b60;
+font-size: 2.5rem;
+font-weight: 800;
+letter-spacing: -1px;
+text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+}
+
+root {
+--sky-cyan: #00ddf5;
+--sky-violet: #8b5cf6;
+--sky-hot-pink: #ff1493;
+--sky-gold: #f5c65b;
+--sky-mint: #22e6a0;
+--sky-navy: #102b60;
+}
+
+.panel {
+border-left: 4px solid var(--sky-cyan);
+transition: box-shadow 0.3s ease;
+}
+
+.panel:hover {
+box-shadow:
+0 10px 35px rgba(0, 170, 230, 0.22);
+}
+
+.panel h2 {
+color: var(--sky-navy);
+}
+
+.executive-panel {
+border-left: 4px solid var(--sky-gold);
+background: rgba(255, 255, 255, 0.78);
+}
+
+.executive-panel h2 {
+color: var(--sky-navy);
+}
+
+.executive-panel:hover {
+box-shadow:
+0 12px 36px rgba(245, 198, 91, 0.28);
+}
+/* CEO Executive Command Center */
+
+.command-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.command-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-left: 4px solid var(--sky-cyan);
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow: 0 8px 24px rgba(16, 43, 96, 0.12);
+
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.command-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 170, 230, 0.25);
+}
+
+.command-card h3 {
+  color: var(--sky-navy);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.command-card p {
+  color: #344767;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Department identity */
+.command-card:nth-child(3) {
+  border-left-color: var(--sky-violet);
+}
+
+/* Security alerts */
+.command-card:nth-child(4) {
+  border-left-color: var(--sky-hot-pink);
+}
+
+/* Financial overview */
+.command-card:nth-child(5) {
+  border-left-color: var(--sky-gold);
+}
+
+/* Live support */
+.command-card:nth-child(6) {
+  border-left-color: var(--sky-mint);
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .command-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .command-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -37,9 +176,43 @@ h1 { color: #e6b85c; }
 </section>
 
 <% if (role === "ceo") { %>
-<section class="panel">
-<h2>Executive Administration</h2>
-<p>Platform-wide oversight and management.</p>
+<section class="panel executive-panel">
+  <h2>CEO Executive Command Center</h2>
+  <p>Platform-wide oversight and management.</p>
+
+  <div class="command-grid">
+
+    <div class="command-card">
+      <h3>👥 Subscribers</h3>
+      <p>Consumer and business accounts</p>
+    </div>
+
+    <div class="command-card">
+      <h3>📋 Pending Approvals</h3>
+      <p>Staff reviews and administrative requests</p>
+    </div>
+
+    <div class="command-card">
+      <h3>🏢 Departments</h3>
+      <p>Executive management and oversight</p>
+    </div>
+
+    <div class="command-card">
+      <h3>🛡️ Security &amp; Moderation</h3>
+      <p>Security alerts and flagged content</p>
+    </div>
+
+    <div class="command-card">
+      <h3>💰 Financial Overview</h3>
+      <p>Revenue, refunds, and financial activity</p>
+    </div>
+
+    <div class="command-card">
+      <h3>💬 Live Support</h3>
+      <p>Waiting, active, and resolved conversations</p>
+    </div>
+
+  </div>
 </section>
 <% } else if (role === "consumer_gm") { %>
 <section class="panel">

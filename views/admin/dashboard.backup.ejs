@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky City | Administration Dashboard</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #101c35;
+color: white;
+margin: 0;
+padding: 30px;
+}
+.dashboard {
+max-width: 900px;
+margin: auto;
+}
+.panel {
+background: #1d3050;
+padding: 20px;
+margin-top: 20px;
+border-radius: 12px;
+}
+h1 { color: #e6b85c; }
+</style>
+</head>
+<body>
+<main class="dashboard">
+<h1>Sky City Administration</h1>
+<p>Authorized Management Dashboard</p>
+
+<section class="panel">
+<h2>Administrator Information</h2>
+<p>Role: <%= role %></p>
+<p>Division: <%= division %></p>
+</section>
+
+<% if (role === "ceo") { %>
+<section class="panel">
+<h2>Executive Administration</h2>
+<p>Platform-wide oversight and management.</p>
+</section>
+<% } else if (role === "consumer_gm") { %>
+<section class="panel">
+<h2>Consumer Administration</h2>
+<p>Consumer division management.</p>
+</section>
+<% } else if (role === "business_gm") { %>
+<section class="panel">
+<h2>Business Administration</h2>
+<p>Business division management.</p>
+</section>
+<% } else { %>
+<section class="panel">
+<h2>Staff Administration</h2>
+<p>Assigned administrative tasks.</p>
+</section>
+<% } %>
+</main>
+</body>
+</html>
