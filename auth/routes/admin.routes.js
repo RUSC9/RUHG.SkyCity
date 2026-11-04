@@ -53,16 +53,35 @@ router.get("/subscribers", requireAdminLogin, async (req, res) => {
       return res.status(403).send("Access denied.");
     }
 
-    const [totalConsumers, totalBusinesses] = await Promise.all([
-      Consumer.countDocuments(),
-      Business.countDocuments()
-    ]);
+    // Retrieve account totals and individual account records
+const [
+  totalConsumers,
+  totalBusinesses,
+  consumers,
+  businesses
+] = await Promise.all([
+  Consumer.countDocuments(),
+  Business.countDocuments(),
+
+  Consumer.find()
+    .select("firstName lastName email isActive createdAt")
+    .sort({ createdAt: -1 })
+    .lean(),
+
+
+  Business.find()
+    .select("businessName email isActive createdAt")
+    .sort({ createdAt: -1 })
+    .lean()
+]);
 
     return res.render("admin/subscribers", {
       layout: false,
       totalConsumers,
       totalBusinesses,
-      totalSubscribers: totalConsumers + totalBusinesses
+      totalSubscribers: totalConsumers + totalBusinesses,
+      consumers,
+      businesses
     });
 
   } catch (error) {

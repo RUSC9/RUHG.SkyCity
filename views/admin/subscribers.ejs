@@ -109,7 +109,147 @@
       </div>
 
     </section>
+<!-- CEO Subscriber Account Directory -->
+<section class="panel" style="margin-top: 25px;">
 
+  <h2>👥 Registered Account Directory</h2>
+  <p>Search and review Sky City consumer and business accounts.</p>
+
+  <!-- Account Search -->
+  <input
+    type="search"
+    id="accountSearch"
+    placeholder="🔍 Search by name, business, or email..."
+    aria-label="Search registered accounts"
+    oninput="filterAccounts()"
+    style="
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      margin: 15px 0 25px;
+      border-radius: 12px;
+      border: 1px solid #b8d9f5;
+      font-size: 16px;
+      background: rgba(255,255,255,0.95);
+    "
+  >
+
+  <!-- Consumer Accounts -->
+  <h2>🧑 Consumer Accounts</h2>
+
+  <div style="overflow-x: auto; margin-bottom: 30px;">
+    <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.9);">
+      <thead>
+        <tr style="background: #dceeff;">
+          <th style="padding: 12px; text-align: left;">Name</th>
+          <th style="padding: 12px; text-align: left;">Email</th>
+          <th style="padding: 12px; text-align: left;">Status</th>
+          <th style="padding: 12px; text-align: left;">Registered</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% consumers.forEach(consumer => { %>
+          <tr class="account-row" style="border-bottom: 1px solid #dce8f5;">
+            <td style="padding: 12px;">
+              <%= consumer.firstName || "" %>
+              <%= consumer.lastName || "" %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= consumer.email %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= consumer.isActive ? "Active" : "Inactive" %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= consumer.createdAt
+                ? new Date(consumer.createdAt).toLocaleDateString()
+                : "Not available" %>
+            </td>
+          </tr>
+        <% }) %>
+
+        <% if (consumers.length === 0) { %>
+          <tr>
+            <td colspan="4" style="padding: 15px;">
+              No consumer accounts found.
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Business Accounts -->
+  <h2>🏢 Business Accounts</h2>
+
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.9);">
+      <thead>
+        <tr style="background: #dceeff;">
+          <th style="padding: 12px; text-align: left;">Business Name</th>
+          <th style="padding: 12px; text-align: left;">Email</th>
+          <th style="padding: 12px; text-align: left;">Status</th>
+          <th style="padding: 12px; text-align: left;">Registered</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% businesses.forEach(business => { %>
+          <tr class="account-row" style="border-bottom: 1px solid #dce8f5;">
+            <td style="padding: 12px;">
+              <%= business.businessName || "Not provided" %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= business.email %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= business.isActive ? "Active" : "Inactive" %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= business.createdAt
+                ? new Date(business.createdAt).toLocaleDateString()
+                : "Not available" %>
+            </td>
+          </tr>
+        <% }) %>
+
+        <% if (businesses.length === 0) { %>
+          <tr>
+            <td colspan="4" style="padding: 15px;">
+              No business accounts found.
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- Search Functionality -->
+<script>
+  function filterAccounts() {
+    const search = document
+      .getElementById("accountSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+    const rows = document.querySelectorAll(".account-row");
+
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(search) ? "" : "none";
+    });
+  }
+</script>
   </main>
 </body>
 </html>
