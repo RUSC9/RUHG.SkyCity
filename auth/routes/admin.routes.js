@@ -129,6 +129,46 @@ router.get("/subscribers/consumer/:id", requireAdminLogin, async (req, res) => {
     );
   }
 });
+// CEO - Individual Business Account Details
+router.get("/subscribers/business/:id", requireAdminLogin, async (req, res) => {
+  try {
+    const admin = req.session.admin;
+
+    // Only the CEO can access individual business account details
+    if (!admin || admin.role !== "ceo") {
+      return res.status(403).send("Access denied.");
+    }
+
+    // Validate the business account ID
+    const mongoose = require("mongoose");
+
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).send("Invalid business account ID.");
+    }
+
+    // Retrieve business information without sensitive credentials
+    const business = await Business.findById(req.params.id)
+      .select("businessName email contactPhone isActive createdAt")
+      .lean();
+
+    if (!business) {
+      return res.status(404).send("Business account not found.");
+    }
+
+    // Display the individual business account
+    return res.render("admin/businessDetails", {
+      layout: false,
+      business
+    });
+
+  } catch (error) {
+    console.error("Business account details error:", error);
+
+    return res.status(500).send(
+      "Unable to load business account details."
+    );
+  }
+});
 // Require an authenticated administrator.
 // The controller also verifies the manager's role and division.
 // Administrator staff account creation

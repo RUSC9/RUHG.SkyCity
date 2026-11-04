@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Business Account Details | Sky City</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #102b60;
+
+      background-image: url("/images/skycity-executive-office.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 70px 25px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 25px;
+      color: #102b60;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .panel {
+      background: rgba(235, 244, 255, 0.93);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border-radius: 22px;
+      padding: 35px;
+
+      box-shadow: 0 15px 40px rgba(16, 43, 96, 0.15);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 30px;
+      color: #102b60;
+    }
+
+    .subtitle {
+      margin-bottom: 30px;
+      color: #48658e;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(230px, 1fr)
+      );
+
+      gap: 20px;
+    }
+
+    .detail-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 25px;
+
+      box-shadow: 0 8px 20px rgba(16, 43, 96, 0.08);
+    }
+
+    .detail-card h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #102b60;
+    }
+
+    .detail-card p {
+      margin-bottom: 0;
+      overflow-wrap: anywhere;
+      font-size: 16px;
+    }
+
+    .status-active {
+      color: #14803c;
+      font-weight: bold;
+    }
+
+    .status-inactive {
+      color: #c62828;
+      font-weight: bold;
+    }
+
+    .notice {
+      margin-top: 30px;
+      padding: 20px;
+
+      background: rgba(210, 231, 255, 0.75);
+      border-radius: 12px;
+
+      color: #244d80;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .notice p {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 15px;
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <a href="/admin/subscribers" class="back-link">
+      &larr; Back to Subscriber Management
+    </a>
+
+    <section class="panel">
+
+      <h1>🏢 Business Account Details</h1>
+
+      <p class="subtitle">
+        Sky City Executive Business Account Overview
+      </p>
+
+      <div class="details-grid">
+
+        <!-- Business Name -->
+        <div class="detail-card">
+          <h3>🏢 Business Name</h3>
+
+          <p>
+            <%= business.businessName || "Not available" %>
+          </p>
+        </div>
+
+        <!-- Email Address -->
+        <div class="detail-card">
+          <h3>📧 Email Address</h3>
+
+          <p>
+            <%= business.email || "Not available" %>
+          </p>
+        </div>
+
+        <!-- Contact Phone -->
+        <div class="detail-card">
+          <h3>📞 Contact Phone</h3>
+
+          <p>
+            <%= business.contactPhone || "Not available" %>
+          </p>
+        </div>
+
+        <!-- Account Status -->
+        <div class="detail-card">
+          <h3>🛡️ Account Status</h3>
+
+          <p class="<%= business.isActive ? 'status-active' : 'status-inactive' %>">
+            <%= business.isActive ? "Active" : "Inactive" %>
+          </p>
+        </div>
+
+        <!-- Registration Date -->
+        <div class="detail-card">
+          <h3>📅 Registration Date</h3>
+
+          <p>
+            <%= business.createdAt
+              ? new Date(business.createdAt).toLocaleDateString()
+              : "Not available" %>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Administrative Notice -->
+      <div class="notice">
+
+        <strong>
+          Executive Administration Notice
+        </strong>
+
+        <p>
+          This business account overview is currently read-only.
+          Account modifications and administrative actions
+          will require authorized permissions and
+          appropriate audit logging.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

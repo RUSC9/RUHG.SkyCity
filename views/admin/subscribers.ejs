@@ -206,8 +206,13 @@
         <% businesses.forEach(business => { %>
           <tr class="account-row" style="border-bottom: 1px solid #dce8f5;">
             <td style="padding: 12px;">
-              <%= business.businessName || "Not provided" %>
-            </td>
+  <a
+    href="/admin/subscribers/business/<%= business._id %>"
+    style="color: #102b60; font-weight: bold; text-decoration: none;"
+  >
+    <%= business.businessName || "Not provided" %>
+  </a>
+</td>
 
             <td style="padding: 12px;">
               <%= business.email %>
