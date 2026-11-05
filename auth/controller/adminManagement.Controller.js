@@ -1,5 +1,8 @@
-  const Admin = require("../models/Admin");
-  const bcrypt = require("bcrypt"); 
+
+const mongoose = require("mongoose");
+const Admin = require("../models/Admin");
+const bcrypt = require("bcrypt");
+
 // Sky City Administrator Management
 // Handles administrator and delegated staff accounts.
 
@@ -309,7 +312,11 @@ return res.status(403).json({
 message: "CEO authorization required."
 });
 }
-
+if (!mongoose.isValidObjectId(managerId)) {
+  return res.status(400).json({
+    message: "Invalid executive manager ID."
+  });
+}
 const executiveManager = await Admin.findOne({
 _id: managerId,
 role: "executive_manager",
@@ -320,6 +327,12 @@ if (!executiveManager) {
 return res.status(404).json({
 message: "Executive manager account not found."
 });
+}
+
+if (executiveManager.isActive) {
+  return res.status(409).json({
+    message: "Executive manager is already active."
+  });
 }
 
 executiveManager.isActive = true;

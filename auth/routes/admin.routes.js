@@ -48,7 +48,8 @@ router.post("/logout", requireAdminLogin, requireAdminCsrf, (req, res) => {
 // CEO-only Department Management
 router.get("/departments", requireAdminLogin, async (req, res) => {
   try {
-    if (req.session?.admin?.role !== "ceo") {
+    if (req.currentAdmin?.role !== "ceo") {
+
       return res.status(403).send("CEO access required.");
     }
 
@@ -226,20 +227,43 @@ router.get("/subscribers/business/:id", requireAdminLogin, async (req, res) => {
 // Require an authenticated administrator.
 // The controller also verifies the manager's role and division.
 // Administrator staff account creation
+
 router.post(
-"/staff/create",
-requireAdminLogin,
-adminManagementController.createStaffAccount
+  "/staff/create",
+  requireAdminLogin,
+  requireAdminCsrf,
+  adminManagementController.createStaffAccount
 );
+
+// CEO-only: Create Executive Manager
 router.post(
-"/executive-manager/create",
-requireAdminLogin,
-adminManagementController.createExecutiveManager
+  "/executive-manager/create",
+  requireAdminLogin,
+  requireAdminCsrf,
+  (req, res, next) => {
+    if (req.currentAdmin?.role !== "ceo") {
+      return res.status(403).send("CEO access required.");
+    }
+
+    next();
+  },
+  adminManagementController.createExecutiveManager
 );
+
+// CEO-only: Activate Executive Manager
 router.patch(
-"/executive-manager/:managerId/activate",
-requireAdminLogin,
-adminManagementController.activateExecutiveManager
+  "/executive-manager/:managerId/activate",
+  requireAdminLogin,
+  requireAdminCsrf,
+  (req, res, next) => {
+    if (req.currentAdmin?.role !== "ceo") {
+      return res.status(403).send("CEO access required.");
+    }
+
+    next();
+  },
+  adminManagementController.activateExecutiveManager
 );
+
 
 module.exports = router;

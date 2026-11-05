@@ -65,31 +65,44 @@ next(error);
 };
 
 const requireDepartment = (department) => {
-return (req, res, next) => {
-const admin = req.currentAdmin;
+  return (req, res, next) => {
+    const admin = req.currentAdmin;
 
-if (!admin) {
-return res.status(401).json({
-message: "Administrator authentication required."
-});
-}
+    if (!admin) {
+      return res.status(401).json({
+        message: "Administrator authentication required."
+      });
+    }
 
-if (admin.role === "ceo") {
-return next();
-}
+    // CEO has full department access.
+    if (admin.role === "ceo") {
+      return next();
+    }
 
-if (
-!Array.isArray(admin.managedDepartments) ||
-!admin.managedDepartments.includes(department)
-) {
-return res.status(403).json({
-message: "Department access denied."
-});
-}
+    // Only executive managers can manage departments.
+    if (
+      admin.role !== "executive_manager" ||
+      admin.division !== "executive"
+    ) {
+      return res.status(403).json({
+        message: "Executive manager access required."
+      });
+    }
 
-next();
+    // Executive managers must be assigned to the department.
+    if (
+      !Array.isArray(admin.managedDepartments) ||
+      !admin.managedDepartments.includes(department)
+    ) {
+      return res.status(403).json({
+        message: "Department access denied."
+      });
+    }
+
+    next();
+  };
 };
-};
+
 
 module.exports = {
 requireAdmin,
