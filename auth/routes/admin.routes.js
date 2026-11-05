@@ -12,6 +12,7 @@ const requireAdminLogin = requireAdmin;
 const {loginAdmin} = require("../controller/adminAuthController");
 const Consumer = require("../models/Consumer");
 const Business = require("../models/Business");
+const Department = require("../models/Department");
 const {
   ensureCsrfToken,
   requireAdminCsrf
@@ -42,6 +43,33 @@ router.post("/logout", requireAdminLogin, requireAdminCsrf, (req, res) => {
     res.clearCookie("connect.sid");
     return res.redirect("/admin/login");
   });
+});
+//CEO-only Department Management
+// CEO-only Department Management
+router.get("/departments", requireAdminLogin, async (req, res) => {
+  try {
+    if (req.session?.admin?.role !== "ceo") {
+      return res.status(403).send("CEO access required.");
+    }
+
+    const departments = await Department.find({
+      isActive: true
+    })
+      .sort({ code: 1 })
+      .lean();
+
+    return res.render("admin/departments", {
+      layout: false,
+      departments
+    });
+
+  } catch (error) {
+    console.error("Department Management error:", error);
+
+    return res.status(500).send(
+      "Unable to load executive departments."
+    );
+  }
 });
 // Protected administrator dashboard
 router.get("/dashboard", requireAdminLogin, ensureCsrfToken, async (req, res) => {

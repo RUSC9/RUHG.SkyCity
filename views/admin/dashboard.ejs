@@ -196,7 +196,21 @@ box-shadow:
   outline: 3px solid #0077ff;
   outline-offset: 3px;
 }
+.department-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
 
+.department-card-link:hover {
+  transform: translateY(-4px);
+}
+
+.department-card-link:focus-visible {
+  outline: 3px solid #ff1493;
+  outline-offset: 4px;
+}
 </style>
 </head>
 <body>
@@ -252,10 +266,10 @@ box-shadow:
       <p>Staff reviews and administrative requests</p>
     </div>
 
-    <div class="command-card">
-      <h3>🏢 Departments</h3>
-      <p>Executive management and oversight</p>
-    </div>
+ <a href="/admin/departments" class="command-card department-card-link">
+  <h3>🏢 Departments</h3>
+  <p>Executive management and oversight</p>
+</a>
 
     <div class="command-card">
       <h3>🛡️ Security &amp; Moderation</h3>

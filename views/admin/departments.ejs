@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sky City | Department Management</title>
+  <style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("/images/SkyCityBoardroom.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+  }
+  /* Executive Department Grid */
+.departments-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-width: 1500px;
+  margin: 30px auto;
+}
+
+/* Frosted Glass Department Cards */
+.department-card {
+  background: rgba(245, 251, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-left: 5px solid #8b5cf6;
+  border-radius: 18px;
+
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(20, 80, 150, 0.18);
+
+  color: #102b66;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.department-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(20, 80, 150, 0.25);
+}
+
+.department-card h2 {
+  color: #173f91;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.department-card p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Tablet Layout */
+@media (max-width: 1100px) {
+  .departments-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 600px) {
+  .departments-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
+/* Boardroom navigation */
+.boardroom-navigation {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 30px 30px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.boardroom-back-btn {
+  display: inline-block;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #087bc7, #5138c9);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(10, 40, 100, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boardroom-back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(10, 40, 100, 0.4);
+}
+
+.boardroom-back-btn:focus-visible {
+  outline: 3px solid #ff1493;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .boardroom-navigation {
+    justify-content: center;
+    padding: 12px 16px 24px;
+  }
+}
+</style>
+<link rel="stylesheet" href="/css/executive.css">
+</head>
+<body>
+  <h1>🏢 Executive Department Management</h1>
+  <p>Sky City executive administration and oversight.</p>
+<section class="departments-grid">
+  <% departments.forEach((department) => { %>
+    <div class="department-card">
+      <h2>
+        <%= department.code
+          .split("_")
+          .map(word =>
+            word.charAt(0).toUpperCase() + word.slice(1)
+          )
+          .join(" ") %>
+      </h2>
+
+      <p>
+        Staffing Capacity:
+        <strong><%= department.staffLimit %></strong>
+      </p>
+
+      <p>
+        Status:
+        <strong>
+          <%= department.isActive ? "Active" : "Inactive" %>
+        </strong>
+      </p>
+    </div>
+  <% }) %>
+</section>
+  <div class="boardroom-navigation">
+  <a href="/admin/dashboard" class="boardroom-back-btn">
+    ← Back to Executive Command Center
+  </a>
+</div>
+</body>
+</html><!DOCTYPE html>
