@@ -15,6 +15,7 @@
     background-attachment: fixed;
     font-family: Arial, sans-serif;
   }
+
   /* Executive Department Grid */
 .departments-grid {
   display: grid;
@@ -115,6 +116,11 @@
 <link rel="stylesheet" href="/css/executive.css">
 </head>
 <body>
+  <div class="boardroom-navigation">
+  <a href="/admin/dashboard" class="boardroom-back-btn">
+    ← Back to Executive Command Center
+  </a>
+</div>
   <h1>🏢 Executive Department Management</h1>
   <p>Sky City executive administration and oversight.</p>
 <section class="departments-grid">
@@ -140,13 +146,8 @@
           <%= department.isActive ? "Active" : "Inactive" %>
         </strong>
       </p>
-    </div>
+ </div>
   <% }) %>
 </section>
-  <div class="boardroom-navigation">
-  <a href="/admin/dashboard" class="boardroom-back-btn">
-    ← Back to Executive Command Center
-  </a>
-</div>
 </body>
 </html><!DOCTYPE html>
