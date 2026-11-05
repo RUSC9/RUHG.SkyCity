@@ -276,6 +276,45 @@ exports.updateBusinessListing = async (req, res) => {
         }
     };
 
+ // Display Quick Add Multiple Items form
+exports.getQuickAddBusinessItemsForm = async (req, res) => {
+  try {
+    // Verify business authentication
+    if (
+      !req.session ||
+      req.session.role !== "business" ||
+      !req.session.userId
+    ) {
+      return res.status(401).send("Business login required.");
+    }
+
+    // Verify ownership of the business listing
+    const listing = await BusinessListing.findOne({
+      _id: req.params.id,
+      businessOwner: req.session.userId
+    });
+
+    if (!listing) {
+      return res.status(404).send(
+        "Business listing not found or access denied."
+      );
+    }
+
+    // Display Quick Add form
+    return res.render("districts/business/quickAddBusinessItems", {
+      layout: false,
+      title: "Quick Add Products & Services",
+      business: listing
+    });
+
+  } catch (error) {
+    console.error("Error loading Quick Add form:", error);
+    return res.status(500).send(
+      "Unable to load Quick Add form."
+    );
+  }
+};
+
     //Add a product or service to a business listing
     exports.addBusinessItem = async (req, res) => {
         try{
@@ -338,6 +377,103 @@ exports.updateBusinessListing = async (req, res) => {
     };
 
    // Update an existing product or service
+   
+ // Add multiple products or services to a business listing
+exports.quickAddBusinessItems = async (req, res) => {
+  try {
+    // Verify business login
+    if (
+      !req.session ||
+      req.session.role !== "business" ||
+      !req.session.userId
+    ) {
+      return res.status(401).send("Business login required.");
+    }
+
+    // Verify listing ownership
+    const listing = await BusinessListing.findOne({
+      _id: req.params.id,
+      businessOwner: req.session.userId
+    });
+
+    if (!listing) {
+      return res.status(404).send("Business listing not found.");
+    }
+
+    const rawItems = req.body.items;
+
+    const submittedItems = Array.isArray(rawItems)
+  ? rawItems.filter(Boolean)
+  : rawItems && typeof rawItems === "object"
+    ? Object.values(rawItems)
+    : [];
+
+    // Validate batch size
+    if (
+      !Array.isArray(submittedItems) ||
+      submittedItems.length < 1 ||
+      submittedItems.length > 50
+    ) {
+      return res.status(400).send(
+        "Submit between 1 and 50 items."
+      );
+    }
+
+    const newItems = [];
+
+    // Validate all items before saving any
+    for (const item of submittedItems) {
+      if (
+        !item ||
+        typeof item.name !== "string" ||
+        !item.name.trim() ||
+        item.name.trim().length > 150 ||
+        !["product", "service"].includes(item.itemType)
+      ) {
+        return res.status(400).send(
+          "Each item requires a valid name and type."
+        );
+      }
+
+      const price =
+        item.price === "" || item.price == null
+          ? undefined
+          : Number(item.price);
+
+      if (
+        price !== undefined &&
+        (!Number.isFinite(price) || price < 0)
+      ) {
+        return res.status(400).send(
+          "Each price must be a valid non-negative number."
+        );
+      }
+
+      newItems.push({
+        name: item.name.trim(),
+        itemType: item.itemType,
+        category: item.category || "",
+        description: item.description || "",
+        price,
+        imageUrl: item.imageUrl || "",
+        isAvailable: true,
+        moderationStatus: "pending"
+      });
+    }
+
+    // Save all validated items together
+    listing.items.push(...newItems);
+    await listing.save();
+
+    return res.redirect(`/business/${listing._id}`);
+  } catch (error) {
+    console.error("Error adding multiple business items:", error);
+    return res.status(500).send(
+      "Unable to add multiple business items."
+    );
+  }
+};
+// Existing single-item function
 exports.updateBusinessItem = async (req, res) => {
 try {
 // Verify business login

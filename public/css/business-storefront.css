@@ -1,0 +1,262 @@
+/* ==========================================
+   SKY CITY — BUSINESS STOREFRONT
+   Futuristic Glass City Experience
+   ========================================== */
+
+/* Storefront Header */
+
+body > header {
+    padding: 45px 25px 35px;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0.35),
+        rgba(139, 92, 246, 0.18),
+        rgba(255, 255, 255, 0.75)
+    );
+
+    border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+}
+
+body > header h1 {
+    margin: 0 0 25px;
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+
+    color: #075985;
+}
+
+/* Storefront Navigation */
+
+body > header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+body > header nav a {
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 12px;
+
+    color: #0369A1;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+body > header nav a:hover {
+    background: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+/* Main Storefront Layout */
+
+body > main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+/* Glass Storefront Sections */
+
+body > main > section {
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-top: 4px solid #38BDF8;
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(14, 116, 144, 0.12);
+}
+
+/* Section Headings */
+
+body > main > section h2,
+body > main > section h3 {
+    color: #0369A1;
+}
+
+body > main > section h2 {
+    font-size: 1.6rem;
+    margin-top: 0;
+}
+
+/* Business Information */
+
+body > main > section p {
+    line-height: 1.8;
+    color: #334155;
+}
+
+body > main > section strong {
+    color: #075985;
+}
+
+/* Products and Services */
+
+body > main > section article {
+    padding: 22px;
+    margin-top: 18px;
+
+    
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+
+    border: 1px solid #BAE6FD;
+    border-radius: 16px;
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+body > main > section article:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 25px rgba(56, 189, 248, 0.15);
+}
+
+body > main > section article h3 {
+    margin-top: 0;
+    color: #7C3AED;
+}
+
+/* Business Owner Tools */
+
+body > main > section:last-child a {
+    display: inline-block;
+
+    margin: 8px 8px 8px 0;
+    padding: 12px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #0284C7,
+        #8B5CF6
+    );
+
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.18);
+
+    transition: transform 0.2s ease;
+}
+
+body > main > section:last-child a:hover {
+    transform: translateY(-2px);
+}
+
+/* Keyboard Accessibility */
+
+body a:focus-visible {
+    outline: 3px solid #FF1493;
+    outline-offset: 3px;
+}
+
+/* Responsive Storefront */
+
+@media (max-width: 768px) {
+    body > header {
+        padding: 30px 15px;
+    }
+
+    body > main {
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    body > main > section {
+        padding: 22px;
+    }
+}
+
+/* Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+    body > header nav a,
+    body > main > section article,
+    body > main > section:last-child a {
+        transition: none;
+    }
+}
+
+
+/* ==========================================
+   SKY CITY — CLEAR STOREFRONT TYPOGRAPHY
+   ========================================== */
+
+/* Dark, readable lettering */
+body > header h1,
+body > header p,
+body > main h1,
+body > main h2,
+body > main h3,
+body > main p,
+body > main strong,
+body > main span,
+body > main li,
+body > main article h3,
+body > main article p {
+    color: #082F49;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+}
+
+/* Readable text against the showroom */
+body > main > section {
+    background: rgba(240, 249, 255, 0.30);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Product card remains transparent */
+body > main > section article {
+    background: rgba(240, 249, 255, 0.24);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Improve spacing between information lines */
+body > main > section p {
+    line-height: 1.65;
+    margin: 10px 0;
+}
+
+/* Preserve white lettering on action buttons */
+.business-back-btn,
+.business-logout-btn,
+body > main button,
+body > main > section:last-child a {
+    color: #FFFFFF;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+}
+
+

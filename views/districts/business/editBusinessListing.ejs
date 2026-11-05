@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Business Listing | Sky City</title>
+    <link rel="stylesheet" href="/css/business.css">
+<link rel="stylesheet" href="/css/storefront-construction.css">
 </head>
 <body>
+
+<!-- Sky City Business Navigation -->
+<nav class="business-page-navigation">
+
+    <a
+        href="/business/<%= listing._id %>"
+        class="business-back-btn"
+    >
+        ← Back to My Storefront
+    </a>
+
+    <a
+        href="/city-center/business"
+        class="business-back-btn"
+    >
+        Business Dashboard
+    </a>
+
+    <a
+        href="/auth/logout"
+        class="business-back-btn business-logout-btn"
+    >
+        Logout
+    </a>
+
+</nav>
 
     <h1>Edit Your Business Listing</h1>
 

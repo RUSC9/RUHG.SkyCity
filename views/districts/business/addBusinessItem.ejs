@@ -6,15 +6,64 @@
 
 content=" width=device-width,initial-scale=1.0">
 <title> Add Product or Service | Sky City</title>
+
+<link rel="stylesheet" href="/css/business.css">
+<link rel="stylesheet" href="/css/business-inventory.css">
+
 </head>
 
 <body>
+
+<!-- Sky City Business Navigation -->
+<nav class="business-page-navigation">
+    <a
+        href="/business/<%= business._id %>"
+        class="business-back-btn"
+    >
+        ← Back to My Storefront
+    </a>
+
+    <a
+        href="/city-center/business"
+        class="business-back-btn"
+    >
+        Business Dashboard
+    </a>
+</nav>
 
     <main>
         <h1>Add Product or Service</h1>
 <p>
     Business: <%=business.businessName %>
 </p>
+
+<div class="inventory-quick-add">
+    <span>Adding more than one product or service?</span>
+
+    <a
+        href="/business-listings/<%= business._id %>/items/quick-add"
+        class="inventory-quick-add-link"
+    >
+        Quick Add Multiple Items →
+    </a>
+</div>
+
+<!-- Inventory Entry Options -->
+<div class="inventory-entry-options">
+
+    <span class="inventory-option-active">
+        <icon>＋</icon> Add Single Item
+    </span>
+
+    <a
+        href="/business-listings/<%= business._id %>/items/quick-add"
+        class="inventory-option-link"
+    >
+        ＋ Add Multiple Items
+    </a>
+
+</div>
+
  <form
    action="/business-listings/<%=business._id %>/items"
    method="POST"

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><%= business.businessName %> | Sky City</title>
+   
+    <link rel="stylesheet" href="/css/business.css">
+    <link rel="stylesheet" href="/css/business-storefront.css">
+    <link rel="stylesheet" href="/css/business-manage.css">
 </head>
 
 <body>
@@ -12,18 +16,39 @@
         <header>
             <h1> <%= business.businessName %></h1>
 
-            <nav>
-                <!-- Business owner view only -->
-                <% if (isOwner) { %>
-                    <a href="/city-center/business">Business City Center</a>
-                    |
-                <% } else { %>
-                    <a href="/city-center/consumer">Consumer City Center</a>
-                <!-- close Business owner view only -->
-                <% } %>    
-                |
-                <a href="/auth/logout">Logout</a>
-            </nav>
+           
+<!-- Sky City Storefront Navigation -->
+<nav class="business-page-navigation">
+
+    <% if (isOwner) { %>
+
+        <a
+            href="/city-center/business"
+            class="business-back-btn"
+        >
+            ← Business Dashboard
+        </a>
+
+        <a
+            href="/auth/logout"
+            class="business-back-btn business-logout-btn"
+        >
+            Logout
+        </a>
+
+    <% } else { %>
+
+        <a
+            href="/city-center/consumer"
+            class="business-back-btn"
+        >
+            ← Consumer City Center
+        </a>
+
+    <% } %>
+
+</nav>
+
         </header>
 
         <main>
@@ -147,6 +172,11 @@
                 <a href="/business-listings/<%= business._id %>/items/new">
                     Add Product or Service
                 </a>
+                
+<br>
+<a href="/business-listings/<%= business._id %>/items/quick-add">
+    Quick Add Multiple Items
+</a>
 
             </section>
                 <!-- Close Business owner view only -->

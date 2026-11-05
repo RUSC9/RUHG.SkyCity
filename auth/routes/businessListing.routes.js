@@ -40,6 +40,18 @@ router.post(
     businessListingController.addBusinessItem
 );
 
+ // Display Quick Add Multiple Items form
+router.get(
+    "/:id/items/quick-add",
+    businessListingController.getQuickAddBusinessItemsForm
+);
+
+// Save multiple products or services
+router.post(
+    "/:id/items/quick-add",
+    businessListingController.quickAddBusinessItems
+);
+
 //Edit a product or a service
 router.post(
     "/:id/items/:itemId/edit",

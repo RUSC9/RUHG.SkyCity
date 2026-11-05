@@ -1,0 +1,286 @@
+
+/* ==========================================
+   SKY CITY — BUSINESS INVENTORY ROOM
+   Futuristic Stockroom Design
+   ========================================== */
+
+
+/* Sky City Inventory Room — Clear Background */
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 32px 20px;
+
+    background-image: url("/images/business-inventory-room.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+body > main {
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 36px;
+
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-top: 5px solid #06B6D4;
+    border-radius: 24px;
+
+    box-shadow: 0 20px 55px rgba(14, 116, 144, 0.2);
+}
+
+body > main h1 {
+    margin-top: 0;
+    color: #075985;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+body > main form {
+    display: grid;
+    gap: 18px;
+}
+
+body > main form label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 700;
+    color: #334155;
+}
+
+body > main form input,
+body > main form select,
+body > main form textarea {
+    width: 100%;
+    padding: 12px 14px;
+
+    background: #FFFFFF;
+    color: #183153;
+
+    border: 1px solid #BAE6FD;
+    border-radius: 12px;
+    font: inherit;
+}
+
+body > main form input:focus,
+body > main form select:focus,
+body > main form textarea:focus {
+    outline: none;
+    border-color: #06B6D4;
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
+}
+
+body > main form button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #0284C7, #8B5CF6);
+    color: #FFFFFF;
+
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+body > main a {
+    color: #0369A1;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        background-attachment: scroll;
+    }
+
+    body > main {
+        padding: 22px;
+    }
+}
+
+/* ==========================================
+   SKY CITY — COMPACT INVENTORY FORM
+   ========================================== */
+
+body > main {
+    max-width: 720px;
+    padding: 28px 32px;
+}
+
+body > main h1 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin: 0 0 12px;
+}
+
+body > main form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body > main form input,
+body > main form select,
+body > main form textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 12px;
+    font-size: 0.92rem;
+    border-radius: 9px;
+}
+
+body > main form textarea {
+    height: 76px;
+    min-height: 76px;
+    resize: vertical;
+}
+
+body > main form label {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+body > main form p {
+    margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+    body > main {
+        padding: 22px 18px;
+        margin: 16px auto;
+    }
+}
+
+/* Quick Add Navigation */
+
+.inventory-quick-add {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 12px 16px;
+    margin: 16px 0 22px;
+
+    background: rgba(224, 242, 254, 0.92);
+    border: 1px solid #7DD3FC;
+    border-radius: 12px;
+
+    font-size: 0.9rem;
+}
+
+.inventory-quick-add-link {
+    color: #0369A1;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.inventory-quick-add-link:hover {
+    color: #7C3AED;
+}
+
+.inventory-quick-add-link:focus-visible {
+    outline: 3px solid #FF1493;
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   SKY CITY — COMPACT INVENTORY FORM
+   ========================================== */
+
+body > main {
+    max-width: 720px;
+    padding: 28px 32px;
+}
+
+body > main h1 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin: 0 0 12px;
+}
+
+body > main form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body > main form input,
+body > main form select,
+body > main form textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 12px;
+    font-size: 0.92rem;
+    border-radius: 9px;
+}
+
+body > main form textarea {
+    height: 76px;
+    min-height: 76px;
+    resize: vertical;
+}
+
+body > main form label {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+body > main form p {
+    margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+    body > main {
+        padding: 22px 18px;
+        margin: 16px auto;
+    }
+}
+
+/* Inventory Entry Selector */
+
+.inventory-entry-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.inventory-option-active,
+.inventory-option-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.inventory-option-active {
+    background: #0369A1;
+    color: white;
+}
+
+.inventory-option-link {
+    background: rgba(255, 255, 255, 0.94);
+    color: #075985;
+    border: 1px solid #38BDF8;
+}
+
+.inventory-option-link:hover {
+    background: #E0F2FE;
+}
+
+.inventory-option-link:focus-visible {
+    outline: 3px solid #FF1493;
+    outline-offset: 3px;
+}
