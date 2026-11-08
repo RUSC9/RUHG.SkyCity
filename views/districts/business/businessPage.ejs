@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><%= business.businessName %> | Sky City</title>
-   
+
     <link rel="stylesheet" href="/css/business.css">
     <link rel="stylesheet" href="/css/business-storefront.css">
     <link rel="stylesheet" href="/css/business-manage.css">
@@ -13,47 +14,55 @@
 
 <body>
 
-        <header>
-            <h1> <%= business.businessName %></h1>
+    <!-- SKY CITY BUSINESS STOREFRONT HEADER -->
+    <header>
 
-           
-<!-- Sky City Storefront Navigation -->
-<nav class="business-page-navigation">
+        <h1><%= business.businessName %></h1>
 
-    <% if (isOwner) { %>
+        <!-- Storefront Navigation -->
+        <nav class="business-page-navigation">
 
-        <a
-            href="/city-center/business"
-            class="business-back-btn"
-        >
-            ← Business Dashboard
-        </a>
+            <% if (isOwner) { %>
 
-        <a
-            href="/auth/logout"
-            class="business-back-btn business-logout-btn"
-        >
-            Logout
-        </a>
+                <a
+                    href="/city-center/business"
+                    class="business-back-btn"
+                >
+                    ← Business Dashboard
+                </a>
 
-    <% } else { %>
+                <a
+                    href="/auth/logout"
+                    class="business-back-btn business-logout-btn"
+                >
+                    Logout
+                </a>
 
-        <a
-            href="/city-center/consumer"
-            class="business-back-btn"
-        >
-            ← Consumer City Center
-        </a>
+            <% } else { %>
 
-    <% } %>
+                <a
+                    href="/city-center/consumer"
+                    class="business-back-btn"
+                >
+                    ← Consumer City Center
+                </a>
 
-</nav>
+            <% } %>
 
-        </header>
+        </nav>
 
-        <main>
+    </header>
 
+
+    <!-- SKY CITY STAGGERED STOREFRONT -->
+    <main class="storefront-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="storefront-column">
+
+            <!-- BUSINESS INFORMATION -->
             <section>
+
                 <h2>Business Information</h2>
 
                 <p>
@@ -63,124 +72,178 @@
 
                 <p>
                     <strong>Street Address:</strong>
-                    <%= business.address?.street || '' %>
+                    <%= business.address?.street || "" %>
                 </p>
 
                 <p>
                     <strong>City:</strong>
-                    <%= business.address?.city || '' %>
+                    <%= business.address?.city || "" %>
                 </p>
 
                 <p>
                     <strong>State:</strong>
-                    <%= business.address?.state || '' %>
+                    <%= business.address?.state || "" %>
                 </p>
 
                 <p>
                     <strong>Zip Code:</strong>
-                    <%= business.address?.zipCode || '' %>
+                    <%= business.address?.zipCode || "" %>
                 </p>
 
                 <p>
                     <strong>Phone:</strong>
-                    <%= business.contactPhone %>
+                    <%= business.contactPhone || "" %>
                 </p>
 
                 <p>
-                    <strong>Email</strong>
-                    <%= business.contactEmail || '' %>
+                    <strong>Email:</strong>
+                    <%= business.contactEmail || "" %>
                 </p>
 
-                 <p>
-                    <strong>Website</strong>
-                    <%= business.website || '' %>
+                <p>
+                    <strong>Website:</strong>
+                    <%= business.website || "" %>
                 </p>
+
             </section>
 
-             <section>
-                <h3>Fulfillment Options</h3>
-                <p>
-                    <strong>Pickup:</strong>
-                    <%= business.fulfillmentOptions?.pickup ? "Yes" : "No" %>
-                </p>
 
-                 <p>
-                    <strong>Delivery:</strong>
-                    <%= business.fulfillmentOptions?.delivery ? "Yes" : "No" %>
-                </p>
-
-                 <p>
-                    <strong>Appointment:</strong>
-                    <%= business.fulfillmentOptions?.appointment ? "Yes" : "No" %>
-                </p>
-
-                 <p>
-                    <strong>Mobile Service:</strong>
-                    <%= business.fulfillmentOptions?.mobileService ? "Yes" : "No" %>
-                </p>
-
-             </section>
-
+            <!-- ABOUT THIS BUSINESS -->
             <section>
+
                 <h2>About This Business</h2>
 
                 <p>
                     <%= business.description || "Business description coming soon." %>
                 </p>
+
             </section>
 
+
+            <!-- BUSINESS OWNER TOOLS -->
+            <!-- Visible only to the business owner -->
+
+            <% if (isOwner) { %>
+
+                <section class="business-owner-tools">
+
+                    <h2>Business Owner Tools</h2>
+
+                    <p>
+                        This section is available to the business owner.
+                    </p>
+
+                    <a
+                        href="/business-listings/<%= business._id %>/edit"
+                    >
+                        Manage Business Listing
+                    </a>
+
+                    <a
+                        href="/business-listings/<%= business._id %>/items/new"
+                    >
+                        Add Product or Service
+                    </a>
+
+                    <a
+                        href="/business-listings/<%= business._id %>/items/quick-add"
+                    >
+                        Quick Add Multiple Items
+                    </a>
+
+                </section>
+
+            <% } %>
+
+        </div>
+        <!-- END LEFT COLUMN -->
+
+
+        <!-- RIGHT COLUMN -->
+        <div class="storefront-column">
+
+            <!-- FULFILLMENT OPTIONS -->
             <section>
+
+                <h2>Fulfillment Options</h2>
+
+                <p>
+                    <strong>Pickup:</strong>
+                    <%= business.fulfillmentOptions?.pickup ? "Yes" : "No" %>
+                </p>
+
+                <p>
+                    <strong>Delivery:</strong>
+                    <%= business.fulfillmentOptions?.delivery ? "Yes" : "No" %>
+                </p>
+
+                <p>
+                    <strong>Appointment:</strong>
+                    <%= business.fulfillmentOptions?.appointment ? "Yes" : "No" %>
+                </p>
+
+                <p>
+                    <strong>Mobile Service:</strong>
+                    <%= business.fulfillmentOptions?.mobileService ? "Yes" : "No" %>
+                </p>
+
+            </section>
+
+
+            <!-- PRODUCTS AND SERVICES -->
+            <section>
+
                 <h2>Products &amp; Services</h2>
 
                 <% if (visibleItems && visibleItems.length > 0) { %>
-                <% visibleItems.forEach((item) =>{ %>
-                    <article>
-                        <h3><%= item.name %></h3>
-                        <p><%= item.description || "" %></p>
 
-                        <% if (item.price !=null) { %>
-                        <p>Price: $<%=
-                        Number(item.price).toFixed(2) %></p>
-                        <%}%>
+                    <% visibleItems.forEach((item) => { %>
+
+                        <article>
+
+                            <h3><%= item.name %></h3>
+
+                            <p>
+                                <%= item.description || "" %>
+                            </p>
+
+                            <% if (item.price != null) { %>
+
+                                <p>
+                                    Price: $<%= Number(item.price).toFixed(2) %>
+                                </p>
+
+                            <% } %>
 
 
-                <% if (isOwner) { %>
-                 <p>Status:<%= item.moderationStatus %></p>
-                <%}%>
-                    </article>
-                <% }); %>
-                <%} else {%>
-                    <p>No products or services available yet.</p>
-                <%} %>
-                </section>
+                            <!-- Moderation status visible to owner only -->
+                            <% if (isOwner) { %>
 
-                 
-                <!-- Business owner view only -->
-                <% if (isOwner) { %>
-            
-            <section>
-                <h2>Business Owner Tools</h2>
+                                <p>
+                                    <strong>Status:</strong>
+                                    <%= item.moderationStatus %>
+                                </p>
 
-                <p>
-                    This section is available to the business owner.
-                </p>
+                            <% } %>
 
-                <a href="/business-listings/<%= business._id %>/edit">
-                    Manage Business Listing
-                </a>
-              <br>
-                <a href="/business-listings/<%= business._id %>/items/new">
-                    Add Product or Service
-                </a>
-                
-<br>
-<a href="/business-listings/<%= business._id %>/items/quick-add">
-    Quick Add Multiple Items
-</a>
+                        </article>
+
+                    <% }); %>
+
+                <% } else { %>
+
+                    <p>
+                        No products or services available yet.
+                    </p>
+
+                <% } %>
 
             </section>
-                <!-- Close Business owner view only -->
-                <%  } %>
-        </main>
+
+        </div>
+        <!-- END RIGHT COLUMN -->
+
+    </main>
+
 </body>
 </html>
