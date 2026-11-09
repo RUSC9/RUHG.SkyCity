@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk Inventory Upload | Sky City</title>
+
+  <style>
+    :root {
+      --navy: #082f49;
+      --cyan: #00c8f8;
+      --violet: #7752df;
+      --pink: #ff1493;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+   
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: var(--navy);
+
+  background-image:
+    linear-gradient(
+      rgba(225, 245, 255, 0.10),
+      rgba(225, 235, 255, 0.16)
+    ),
+    url("/images/bulkInventoryUpload.PNG");
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* SKY CITY — BULK UPLOAD PAGE LAYOUT */
+
+.page {
+  width: min(950px, 94%);
+  margin: 35px auto;
+}
+
+.header {
+  text-align: center;
+  padding: 25px;
+  background: rgba(235, 249, 255, 0.88);
+  border-radius: 22px;
+  margin-bottom: 22px;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.subtitle {
+  line-height: 1.6;
+}
+
+.panel {
+  background: rgba(235, 249, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(15, 45, 95, 0.22);
+  margin-bottom: 22px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.upload-zone {
+  display: block;
+  border: 2px dashed var(--violet);
+  border-radius: 18px;
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(220, 246, 255, 0.65);
+  cursor: pointer;
+}
+
+.upload-zone strong {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 18px auto 0;
+  max-width: 100%;
+}
+
+.button {
+  display: inline-block;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 22px;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(120deg, #007bc3, var(--violet));
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.notice {
+  padding: 16px;
+  border-left: 4px solid var(--pink);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 15px;
+}
+
+th, td {
+  border-bottom: 1px solid #bad7e8;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: #d9f3ff;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 18px;
+  }
+}
+
+/* ==========================================
+   SKY CITY — CLEAR TRANSPARENT PANELS
+   ========================================== */
+
+.header,
+.panel {
+  background: rgba(225, 245, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 12px 35px rgba(5, 35, 85, 0.18);
+
+  /* Remove frosted-glass blur */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.upload-zone {
+  background: rgba(220, 246, 255, 0.18);
+  border: 2px dashed #7752df;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.notice {
+  background: rgba(255, 255, 255, 0.70);
+}
+
+th {
+  background: rgba(205, 239, 255, 0.75);
+}
+
+td {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* SKY CITY — TRANSPARENT PANEL READABILITY */
+
+.header,
+.panel {
+  background: rgba(225, 245, 255, 0.12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.header h1,
+.panel h2 {
+  color: #052b49;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.header p,
+.panel p,
+.upload-zone {
+  color: #052b49;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.table-wrap {
+  background: rgba(235, 249, 255, 0.30);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+th {
+  background: rgba(215, 242, 255, 0.82);
+  color: #052b49;
+}
+
+td {
+  background: rgba(235, 249, 255, 0.58);
+  color: #052b49;
+}
+
+.notice {
+  background: rgba(245, 251, 255, 0.78);
+  color: #052b49;
+}
+/* SKY CITY — FINAL TEXT CONTRAST */
+
+.header h1,
+.panel h2,
+.upload-zone strong {
+  color: #032b49;
+  font-weight: 800;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.95),
+    0 0 8px rgba(255, 255, 255, 0.85);
+}
+
+.header p,
+.panel p,
+.upload-zone {
+  color: #032b49;
+  font-weight: 600;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.95),
+    0 0 6px rgba(255, 255, 255, 0.75);
+}
+
+.upload-zone {
+  background: rgba(225, 245, 255, 0.24);
+}
+
+.panel .notice {
+  background: rgba(245, 251, 255, 0.82);
+  font-weight: 600;
+}
+
+/* ==========================================
+   SKY CITY — SPREADSHEET READABILITY
+   ========================================== */
+
+.table-wrap {
+  background: rgba(235, 249, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 8px;
+  overflow-x: auto;
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrap th {
+  background: rgba(185, 230, 255, 0.96);
+  color: #052b49;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.table-wrap td {
+  background: rgba(245, 251, 255, 0.94);
+  color: #052b49;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.table-wrap th,
+.table-wrap td {
+  padding: 13px 12px;
+  border-bottom: 1px solid #b8d7e8;
+  text-align: left;
+}
+
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="header">
+      <h1>Bulk Inventory Upload</h1>
+      <p class="subtitle">
+        <strong><%= business.businessName %></strong>
+        <br>
+        Import multiple products and services using CSV or Excel.
+      </p>
+    </header>
+
+    <section class="panel">
+      <h2>Upload Your Inventory</h2>
+
+      <form
+        action="/business-listings/<%= business._id %>/items/bulk-upload"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label class="upload-zone" for="inventoryFile">
+          <strong>Select your inventory spreadsheet</strong>
+          Supported formats: .csv and .xlsx
+
+          <input
+            type="file"
+            id="inventoryFile"
+            name="inventoryFile"
+            accept=".csv,.xlsx"
+            required
+          >
+        </label>
+
+        <div class="actions">
+          <button class="button" type="submit" disabled>
+            Preview Inventory
+          </button>
+
+          <a class="button" href="/business/<%= business._id %>">
+            Back to Storefront
+          </a>
+        </div>
+      </form>
+
+      <p class="notice">
+        Preview is coming next. No inventory will be saved
+        until the import has been validated and confirmed.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Spreadsheet Format</h2>
+      <p>
+        Your spreadsheet should contain these column headers.
+        Only name and itemType are required.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>itemType</th>
+              <th>category</th>
+              <th>description</th>
+              <th>price</th>
+              <th>imageUrl</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wireless Mouse</td>
+              <td>product</td>
+              <td>Electronics</td>
+              <td>Bluetooth mouse</td>
+              <td>24.99</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Computer Repair</td>
+              <td>service</td>
+              <td>Technology</td>
+              <td>Diagnostic service</td>
+              <td>65.00</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Import Guidelines</h2>
+      <p>
+        Products and services must have valid names and types.
+        Prices cannot be negative. Duplicate entries will be
+        identified during validation.
+      </p>
+
+      <p class="notice">
+        All imported inventory will enter Sky City's moderation
+        workflow before becoming publicly visible.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
+

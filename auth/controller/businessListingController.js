@@ -560,3 +560,54 @@ console.error("Error updating business item:", error);
 return res.status(500).send("Unable to update business item.");
 }
 };
+
+/* ==========================================
+   SKY CITY — BULK INVENTORY UPLOAD PAGE
+   ========================================== */
+
+exports.getBulkUploadBusinessItemsForm = async (req, res) => {
+  try {
+    // Verify business authentication
+    if (
+      !req.session ||
+      req.session.role !== "business" ||
+      !req.session.userId
+    ) {
+      return res.status(401).send(
+        "Business login required."
+      );
+    }
+
+    // Verify ownership of the business listing
+    const listing = await BusinessListing.findOne({
+      _id: req.params.id,
+      businessOwner: req.session.userId
+    });
+
+    if (!listing) {
+      return res.status(404).send(
+        "Business listing not found or access denied."
+      );
+    }
+
+    // Render the Bulk Upload page
+    return res.render(
+      "districts/business/bulkUploadBusinessItems",
+      {
+        layout: false,
+        title: "Bulk Inventory Upload",
+        business: listing
+      }
+    );
+
+  } catch (error) {
+    console.error(
+      "Error loading Bulk Upload page:",
+      error
+    );
+
+    return res.status(500).send(
+      "Unable to load Bulk Upload page."
+    );
+  }
+};

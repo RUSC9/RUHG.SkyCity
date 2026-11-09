@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const businessListingController = require("../controller/businessListingController");
-
+const businessInventoryImportController = require("../controller/businessInventoryImportController");
+const businessInventoryUpload = require("../middleware/businessInventoryUpload");
 // Show the create business listing page
 router.get(
     "/create",
@@ -51,6 +52,18 @@ router.post(
     "/:id/items/quick-add",
     businessListingController.quickAddBusinessItems
 );
+
+
+/* ==========================================
+   SKY CITY — BULK INVENTORY UPLOAD
+   ========================================== */
+
+// Display the Bulk Inventory Upload page
+router.get(
+    "/:id/items/bulk-upload",
+    businessListingController.getBulkUploadBusinessItemsForm
+);
+
 
 //Edit a product or a service
 router.post(

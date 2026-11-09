@@ -354,3 +354,68 @@ body > main.storefront-layout {
         padding: 18px;
     }
 }
+
+
+
+/* ==========================================
+   SKY CITY — FINAL STOREFRONT READABILITY
+   ========================================== */
+
+/* Consistent readable text */
+body > main.storefront-layout .storefront-column > section {
+    color: #082F49;
+}
+
+/* Section headings */
+body > main.storefront-layout .storefront-column > section h2,
+body > main.storefront-layout .storefront-column > section h3 {
+    color: #082F49;
+    font-weight: 800;
+    line-height: 1.3;
+    text-shadow: none;
+    -webkit-text-stroke: 0;
+}
+
+/* Descriptions and business details */
+body > main.storefront-layout .storefront-column > section p {
+    color: #082F49;
+    font-weight: 500;
+    line-height: 1.7;
+    text-shadow: none;
+}
+
+/* Labels */
+body > main.storefront-layout .storefront-column > section strong {
+    color: #062B46;
+    font-weight: 800;
+}
+
+/* Product cards: transparent, with subtle contrast */
+body > main.storefront-layout .storefront-column article {
+    background: rgba(224, 247, 255, 0.20);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Product names */
+body > main.storefront-layout .storefront-column article h3 {
+    color: #062B46;
+    font-weight: 800;
+    text-shadow: none;
+}
+
+/* Owner management buttons */
+body > main.storefront-layout .business-owner-tools a {
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+/* Improve keyboard navigation */
+body > main.storefront-layout a:focus-visible {
+    outline: 3px solid #FF1493;
+    outline-offset: 3px;
+}
+
