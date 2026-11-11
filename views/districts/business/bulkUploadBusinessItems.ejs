@@ -18,7 +18,7 @@
       box-sizing: border-box;
     }
 
-   
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -316,34 +316,132 @@ td {
     <section class="panel">
       <h2>Upload Your Inventory</h2>
 
-      <form
-        action="/business-listings/<%= business._id %>/items/bulk-upload"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <label class="upload-zone" for="inventoryFile">
-          <strong>Select your inventory spreadsheet</strong>
-          Supported formats: .csv and .xlsx
 
-          <input
-            type="file"
-            id="inventoryFile"
-            name="inventoryFile"
-            accept=".csv,.xlsx"
-            required
-          >
-        </label>
+<form
+  id="inventoryUploadForm"
+  action="/business-listings/<%= business._id %>/items/bulk-upload/preview"
+  method="POST"
+  enctype="multipart/form-data"
+  data-csrf-token="<%= businessInventoryCsrfToken %>"
+>
+  <label class="upload-zone" for="inventoryFile">
+    <strong>Select your inventory spreadsheet</strong>
+    Supported formats: .csv and .xlsx
 
-        <div class="actions">
-          <button class="button" type="submit" disabled>
-            Preview Inventory
-          </button>
+    <input
+      type="file"
+      id="inventoryFile"
+      name="inventoryFile"
+      accept=".csv,.xlsx"
+      required
+    >
+  </label>
 
-          <a class="button" href="/business/<%= business._id %>">
-            Back to Storefront
-          </a>
-        </div>
-      </form>
+  <div class="actions">
+    <button class="button" type="submit">
+      Preview Inventory
+    </button>
+
+    <a class="button" href="/business/<%= business._id %>">
+      Back to Storefront
+    </a>
+  </div>
+</form>
+
+<section
+  id="inventoryPreviewResult"
+  class="panel"
+  aria-live="polite"
+  hidden
+></section>
+
+<script>
+  const uploadForm =
+    document.getElementById("inventoryUploadForm");
+
+  const previewResult =
+    document.getElementById("inventoryPreviewResult");
+
+  uploadForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton =
+      uploadForm.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    previewResult.hidden = false;
+    previewResult.textContent = "Validating inventory...";
+
+    try {
+      const response = await fetch(uploadForm.action, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "X-CSRF-Token": uploadForm.dataset.csrfToken
+        },
+        body: new FormData(uploadForm)
+      });
+
+      const result = await response.json();
+
+      previewResult.replaceChildren();
+
+      const heading = document.createElement("h2");
+      heading.textContent = result.message || "Inventory Preview";
+      previewResult.appendChild(heading);
+
+      if (response.ok) {
+        const summary = document.createElement("p");
+        summary.textContent =
+          `Total rows: ${result.totalRows} | ` +
+          `Valid items: ${result.validCount} | ` +
+          `Errors: ${result.errorCount}`;
+
+        previewResult.appendChild(summary);
+
+        if (Array.isArray(result.items)) {
+          const list = document.createElement("ul");
+
+          result.items.forEach((item) => {
+            const entry = document.createElement("li");
+            entry.textContent =
+              `${item.name} (${item.itemType})`;
+            list.appendChild(entry);
+          });
+
+          previewResult.appendChild(list);
+        }
+
+        if (Array.isArray(result.errors) &&
+            result.errors.length > 0) {
+          const errorHeading = document.createElement("h3");
+          errorHeading.textContent = "Validation Errors";
+          previewResult.appendChild(errorHeading);
+
+          const errorList = document.createElement("ul");
+
+          result.errors.forEach((error) => {
+            const entry = document.createElement("li");
+            entry.textContent =
+              typeof error === "string"
+                ? error
+                : JSON.stringify(error);
+            errorList.appendChild(entry);
+          });
+
+          previewResult.appendChild(errorList);
+        }
+      }
+    } catch (error) {
+      previewResult.textContent =
+        "Unable to preview inventory. Please try again.";
+      console.error("Inventory preview failed:", error);
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+</script>
+
 
       <p class="notice">
         Preview is coming next. No inventory will be saved
@@ -408,4 +506,3 @@ td {
   </main>
 </body>
 </html>
-

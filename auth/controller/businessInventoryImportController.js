@@ -227,419 +227,53 @@ function validateInventoryRows(rows, existingItems = []) {
   };
 }
 
-function validateInventoryRows(rows, existingItems = []) {
-  const errors = [];
-  const validItems = [];
-  const seen = new Set();
-
-  const makeKey = (name, itemType) =>
-    `${itemType.trim().toLowerCase()}:${name.trim().toLowerCase()}`;
-
-  const existingKeys = new Set(
-    existingItems.map(item =>
-      makeKey(String(item.name || ""), String(item.itemType || ""))
-    )
-  );
-
-  rows.forEach((row, index) => {
-    const rowNumber = index + 2;
-
-    const name = String(row.name ?? "").trim();
-    const itemType = String(row.itemType ?? "").trim().toLowerCase();
-    const category = String(row.category ?? "").trim();
-    const description = String(row.description ?? "").trim();
-    const imageUrl = String(row.imageUrl ?? "").trim();
-    const priceText = String(row.price ?? "").trim();
-
-    const rowErrors = [];
-
-    if (!name || name.length > 150) {
-      rowErrors.push("Name must contain 1–150 characters.");
+async function previewInventoryUpload(req, res) {
+  try {
+    if (!req.businessListing) {
+      return res.status(403).send("Business access denied.");
     }
 
-    if (!["product", "service"].includes(itemType)) {
-      rowErrors.push("Item type must be product or service.");
+    if (!req.file) {
+      return res.status(400).send(
+        "Please select a CSV or XLSX inventory file."
+      );
     }
 
-    const price = priceText === "" ? undefined : Number(priceText);
+    const rows = await parseInventoryFile(req.file);
 
-    if (
-      price !== undefined &&
-      (!Number.isFinite(price) || price < 0)
-    ) {
-      rowErrors.push("Price must be a valid nonnegative number.");
-    }
+    const existingItems = req.businessListing.items || [];
 
-    if (name && ["product", "service"].includes(itemType)) {
-      const key = makeKey(name, itemType);
+    const validation = validateInventoryRows(
+      rows,
+      existingItems
+    );
 
-      if (seen.has(key)) {
-        rowErrors.push("Duplicate item within the uploaded file.");
-      } else if (existingKeys.has(key)) {
-        rowErrors.push("Item already exists in this business inventory.");
-      }
-
-      seen.add(key);
-    }
-
-    if (rowErrors.length) {
-      errors.push({
-        row: rowNumber,
-        messages: rowErrors
-      });
-      return;
-    }
-
-    validItems.push({
-      name,
-      itemType,
-      category,
-      description,
-      price,
-      imageUrl,
-      isAvailable: true,
-      moderationStatus: "pending"
+    return res.status(200).json({
+      message: validation.isValid
+        ? "Inventory validated successfully."
+        : "Inventory contains validation errors.",
+      businessId: String(req.businessListing._id),
+      totalRows: rows.length,
+      validCount: validation.validItems.length,
+      errorCount: validation.errors.length,
+      isValid: validation.isValid,
+      items: validation.validItems,
+      errors: validation.errors
     });
-  });
 
-  return {
-    validItems,
-    errors,
-    isValid: errors.length === 0
-  };
-}
+  } catch (error) {
+    console.error("Inventory preview error:", error);
 
-function validateInventoryRows(rows, existingItems = []) {
-  const errors = [];
-  const validItems = [];
-  const seen = new Set();
-
-  const makeKey = (name, itemType) =>
-    `${itemType.trim().toLowerCase()}:${name.trim().toLowerCase()}`;
-
-  const existingKeys = new Set(
-    existingItems.map(item =>
-      makeKey(String(item.name || ""), String(item.itemType || ""))
-    )
-  );
-
-  rows.forEach((row, index) => {
-    const rowNumber = index + 2;
-
-    const name = String(row.name ?? "").trim();
-    const itemType = String(row.itemType ?? "").trim().toLowerCase();
-    const category = String(row.category ?? "").trim();
-    const description = String(row.description ?? "").trim();
-    const imageUrl = String(row.imageUrl ?? "").trim();
-    const priceText = String(row.price ?? "").trim();
-
-    const rowErrors = [];
-
-    if (!name || name.length > 150) {
-      rowErrors.push("Name must contain 1–150 characters.");
-    }
-
-    if (!["product", "service"].includes(itemType)) {
-      rowErrors.push("Item type must be product or service.");
-    }
-
-    const price = priceText === "" ? undefined : Number(priceText);
-
-    if (
-      price !== undefined &&
-      (!Number.isFinite(price) || price < 0)
-    ) {
-      rowErrors.push("Price must be a valid nonnegative number.");
-    }
-
-    if (name && ["product", "service"].includes(itemType)) {
-      const key = makeKey(name, itemType);
-
-      if (seen.has(key)) {
-        rowErrors.push("Duplicate item within the uploaded file.");
-      } else if (existingKeys.has(key)) {
-        rowErrors.push("Item already exists in this business inventory.");
-      }
-
-      seen.add(key);
-    }
-
-    if (rowErrors.length) {
-      errors.push({
-        row: rowNumber,
-        messages: rowErrors
-      });
-      return;
-    }
-
-    validItems.push({
-      name,
-      itemType,
-      category,
-      description,
-      price,
-      imageUrl,
-      isAvailable: true,
-      moderationStatus: "pending"
+    return res.status(400).json({
+      message: "Unable to preview inventory upload."
     });
-  });
-
-  return {
-    validItems,
-    errors,
-    isValid: errors.length === 0
-  };
-}
-
-function validateInventoryRows(rows, existingItems = []) {
-  const errors = [];
-  const validItems = [];
-  const seen = new Set();
-
-  const makeKey = (name, itemType) =>
-    `${itemType.trim().toLowerCase()}:${name.trim().toLowerCase()}`;
-
-  const existingKeys = new Set(
-    existingItems.map(item =>
-      makeKey(String(item.name || ""), String(item.itemType || ""))
-    )
-  );
-
-  rows.forEach((row, index) => {
-    const rowNumber = index + 2;
-
-    const name = String(row.name ?? "").trim();
-    const itemType = String(row.itemType ?? "").trim().toLowerCase();
-    const category = String(row.category ?? "").trim();
-    const description = String(row.description ?? "").trim();
-    const imageUrl = String(row.imageUrl ?? "").trim();
-    const priceText = String(row.price ?? "").trim();
-
-    const rowErrors = [];
-
-    if (!name || name.length > 150) {
-      rowErrors.push("Name must contain 1–150 characters.");
-    }
-
-    if (!["product", "service"].includes(itemType)) {
-      rowErrors.push("Item type must be product or service.");
-    }
-
-    const price = priceText === "" ? undefined : Number(priceText);
-
-    if (
-      price !== undefined &&
-      (!Number.isFinite(price) || price < 0)
-    ) {
-      rowErrors.push("Price must be a valid nonnegative number.");
-    }
-
-    if (name && ["product", "service"].includes(itemType)) {
-      const key = makeKey(name, itemType);
-
-      if (seen.has(key)) {
-        rowErrors.push("Duplicate item within the uploaded file.");
-      } else if (existingKeys.has(key)) {
-        rowErrors.push("Item already exists in this business inventory.");
-      }
-
-      seen.add(key);
-    }
-
-    if (rowErrors.length) {
-      errors.push({
-        row: rowNumber,
-        messages: rowErrors
-      });
-      return;
-    }
-
-    validItems.push({
-      name,
-      itemType,
-      category,
-      description,
-      price,
-      imageUrl,
-      isAvailable: true,
-      moderationStatus: "pending"
-    });
-  });
-
-  return {
-    validItems,
-    errors,
-    isValid: errors.length === 0
-  };
-}
-
-function validateInventoryRows(rows, existingItems = []) {
-  const errors = [];
-  const validItems = [];
-  const seen = new Set();
-
-  const makeKey = (name, itemType) =>
-    `${itemType.trim().toLowerCase()}:${name.trim().toLowerCase()}`;
-
-  const existingKeys = new Set(
-    existingItems.map(item =>
-      makeKey(String(item.name || ""), String(item.itemType || ""))
-    )
-  );
-
-  rows.forEach((row, index) => {
-    const rowNumber = index + 2;
-
-    const name = String(row.name ?? "").trim();
-    const itemType = String(row.itemType ?? "").trim().toLowerCase();
-    const category = String(row.category ?? "").trim();
-    const description = String(row.description ?? "").trim();
-    const imageUrl = String(row.imageUrl ?? "").trim();
-    const priceText = String(row.price ?? "").trim();
-
-    const rowErrors = [];
-
-    if (!name || name.length > 150) {
-      rowErrors.push("Name must contain 1–150 characters.");
-    }
-
-    if (!["product", "service"].includes(itemType)) {
-      rowErrors.push("Item type must be product or service.");
-    }
-
-    const price = priceText === "" ? undefined : Number(priceText);
-
-    if (
-      price !== undefined &&
-      (!Number.isFinite(price) || price < 0)
-    ) {
-      rowErrors.push("Price must be a valid nonnegative number.");
-    }
-
-    if (name && ["product", "service"].includes(itemType)) {
-      const key = makeKey(name, itemType);
-
-      if (seen.has(key)) {
-        rowErrors.push("Duplicate item within the uploaded file.");
-      } else if (existingKeys.has(key)) {
-        rowErrors.push("Item already exists in this business inventory.");
-      }
-
-      seen.add(key);
-    }
-
-    if (rowErrors.length) {
-      errors.push({
-        row: rowNumber,
-        messages: rowErrors
-      });
-      return;
-    }
-
-    validItems.push({
-      name,
-      itemType,
-      category,
-      description,
-      price,
-      imageUrl,
-      isAvailable: true,
-      moderationStatus: "pending"
-    });
-  });
-
-  return {
-    validItems,
-    errors,
-    isValid: errors.length === 0
-  };
-}
-
-function validateInventoryRows(rows, existingItems = []) {
-  const errors = [];
-  const validItems = [];
-  const seen = new Set();
-
-  const makeKey = (name, itemType) =>
-    `${itemType.trim().toLowerCase()}:${name.trim().toLowerCase()}`;
-
-  const existingKeys = new Set(
-    existingItems.map(item =>
-      makeKey(String(item.name || ""), String(item.itemType || ""))
-    )
-  );
-
-  rows.forEach((row, index) => {
-    const rowNumber = index + 2;
-
-    const name = String(row.name ?? "").trim();
-    const itemType = String(row.itemType ?? "").trim().toLowerCase();
-    const category = String(row.category ?? "").trim();
-    const description = String(row.description ?? "").trim();
-    const imageUrl = String(row.imageUrl ?? "").trim();
-    const priceText = String(row.price ?? "").trim();
-
-    const rowErrors = [];
-
-    if (!name || name.length > 150) {
-      rowErrors.push("Name must contain 1–150 characters.");
-    }
-
-    if (!["product", "service"].includes(itemType)) {
-      rowErrors.push("Item type must be product or service.");
-    }
-
-    const price = priceText === "" ? undefined : Number(priceText);
-
-    if (
-      price !== undefined &&
-      (!Number.isFinite(price) || price < 0)
-    ) {
-      rowErrors.push("Price must be a valid nonnegative number.");
-    }
-
-    if (name && ["product", "service"].includes(itemType)) {
-      const key = makeKey(name, itemType);
-
-      if (seen.has(key)) {
-        rowErrors.push("Duplicate item within the uploaded file.");
-      } else if (existingKeys.has(key)) {
-        rowErrors.push("Item already exists in this business inventory.");
-      }
-
-      seen.add(key);
-    }
-
-    if (rowErrors.length) {
-      errors.push({
-        row: rowNumber,
-        messages: rowErrors
-      });
-      return;
-    }
-
-    validItems.push({
-      name,
-      itemType,
-      category,
-      description,
-      price,
-      imageUrl,
-      isAvailable: true,
-      moderationStatus: "pending"
-    });
-  });
-
-  return {
-    validItems,
-    errors,
-    isValid: errors.length === 0
-  };
+  }
 }
 
 module.exports = {
   parseInventoryFile,
   validateInventoryRows,
+  previewInventoryUpload,
   REQUIRED_COLUMNS,
   SUPPORTED_COLUMNS,
   MAX_ROWS

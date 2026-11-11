@@ -1,0 +1,372 @@
+
+/* SKY CITY — CONSUMER CITY CENTER */
+
+:root {
+  --sky-blue: #38bdf8;
+  --electric-cyan: #00d9ff;
+  --violet: #7952d8;
+  --hot-pink: #ff1493;
+  --deep-blue: #16356d;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--deep-blue);
+
+  background-image: url("/images/consumerCityCenter.png");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+/* HEADER */
+
+.city-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px 6%;
+  background: rgba(255, 255, 255, 0.76);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 30px rgba(40, 92, 160, 0.1);
+}
+
+.city-brand h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: var(--violet);
+}
+
+.brand-parent {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--deep-blue);
+}
+
+.city-brand p {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+}
+
+.city-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.city-navigation a {
+  padding: 10px 15px;
+  border-radius: 24px;
+  color: var(--deep-blue);
+  font-weight: 650;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.city-navigation a:hover,
+.city-navigation a[aria-current="page"] {
+  background: var(--violet);
+  color: white;
+}
+
+/* WELCOME */
+
+.city-welcome {
+  max-width: 950px;
+  margin: 70px auto 55px;
+  padding: 25px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: #7840bd;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.city-welcome h2 {
+  margin: 16px 0;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--deep-blue);
+}
+
+.city-welcome p {
+  max-width: 680px;
+  margin: auto;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+/* DISTRICTS */
+
+.districts {
+  max-width: 1300px;
+  margin: 0 auto 85px;
+  padding: 0 6%;
+}
+
+.section-heading {
+  margin-bottom: 28px;
+}
+
+.section-heading h2 {
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
+
+.section-heading p {
+  margin-top: 0;
+}
+
+.district-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.district-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 270px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 35px rgba(34, 83, 150, 0.12);
+  text-decoration: none;
+  color: var(--deep-blue);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.district-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(34, 83, 150, 0.2);
+}
+
+.district-card:focus-visible,
+.city-navigation a:focus-visible {
+  outline: 3px solid var(--deep-blue);
+  outline-offset: 4px;
+}
+
+.district-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.district-card h3 {
+  margin: 20px 0 10px;
+  font-size: 1.8rem;
+}
+
+.district-card p {
+  max-width: 430px;
+  line-height: 1.6;
+}
+
+.district-action {
+  margin-top: auto;
+  padding-top: 20px;
+  font-weight: 800;
+}
+
+/* DISTRICT ACCENTS */
+
+.business-district {
+  border-top: 6px solid var(--electric-cyan);
+}
+
+.entertainment-district {
+  border-top: 6px solid var(--hot-pink);
+}
+
+.services-district {
+  border-top: 6px solid #14b8a6;
+}
+
+.social-district {
+  border-top: 6px solid var(--violet);
+}
+
+.business-district .district-label {
+  color: #087a98;
+}
+
+.entertainment-district .district-label {
+  color: #bb0870;
+}
+
+.services-district .district-label {
+  color: #087c6f;
+}
+
+.social-district .district-label {
+  color: #7040b7;
+}
+
+/* FOOTER */
+
+.city-footer {
+  padding: 25px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.city-footer p {
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.city-footer small {
+  color: #526b91;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  .city-header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .city-navigation {
+    justify-content: center;
+  }
+
+  .district-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .city-welcome {
+    margin: 40px auto 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .district-card,
+  .city-navigation a {
+    transition: none;
+  }
+}
+
+
+/* Sky City — Lightweight glass refinements */
+
+.city-welcome {
+  max-width: 850px;
+  margin: 42px auto 28px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: none;
+}
+
+.city-welcome h2 {
+  margin: 8px 0;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+.city-welcome p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.section-heading {
+  display: block;
+  width: fit-content;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.district-card {
+  min-height: 220px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.district-card h3 {
+  margin: 12px 0 6px;
+  font-size: 1.5rem;
+}
+
+.district-grid {
+  gap: 16px;
+}
+
+@media (max-width: 800px) {
+  .city-welcome {
+    margin: 24px 16px;
+    padding: 16px;
+  }
+}
+
+/* Consumer Logout Button */
+
+.consumer-logout-form {
+  margin: 0;
+}
+
+.consumer-logout-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 24px;
+  background: #7952d8;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease
+
+/* Consumer logout button */
+
+.logout-form {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  border: 1px solid #7952d8;
+  border-radius: 24px;
+  background: #7952d8;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #5835aa;
+}
+
+.logout-button:focus-visible {
+  outline: 3px solid #16356d;
+  outline-offset: 3px;
+}

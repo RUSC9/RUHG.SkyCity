@@ -1,36 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sky City Consumer City Center</title>
-    </head>
-    <body>
-        <h1> Welcome to Sky City
-         Consumer City Center</h1>
-            
-            <main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <section>
-                    <h2>Buisiness Listings</h2>
-                        <p>Discover businesses, products, and services throughout Sky City.</p>
-                </section>
+  <title>Consumer City Center | Sky City</title>
 
-                <section>
-                    <h2>Entertainment</h2>
-                        <p>Explore music, movies, shows, books, games, podcasts, and events</p>
-                    </section>
+  <link rel="stylesheet" href="/css/consumer-city-center.css">
+</head>
 
-                    <section>
-                        <h2>City Services</h2>
-                        <p>Find nonprofit organizations and community services.</p>
-                    </section>
+<body>
+  <header class="city-header">
+    <div class="city-brand">
+      <span class="brand-parent">RUHG</span>
+      <h1>SKY CITY</h1>
+      <p>Where Business Meets Opportunity.</p>
+    </div>
 
-                    <section>
-                        <h2>Community Social Hubs</h2>
-                        <p>Connect with the Sky City community.</p>
-                    </section>
+    <nav class="city-navigation" aria-label="City navigation">
+      <a href="/city-center/consumer" aria-current="page">City Center</a>
+      <a href="/districts/business">Businesses</a>
+      <a href="/districts/entertainment">Entertainment</a>
+      <a href="/districts/services">City Services</a>
+      <a href="/districts/social">Social Hubs</a>
 
-                </main>
-    </body>
+
+
+    </nav>
+
+<!-- Consumer Logout -->
+<form action="/auth/logout/consumer" method="POST" class="consumer-logout-form">
+  <button type="submit" class="consumer-logout-btn">
+    Log Out
+  </button>
+</form>
+
+  </header>
+
+  <main>
+    <section class="city-welcome">
+      <span class="eyebrow">YOUR CITY. YOUR EXPERIENCE.</span>
+      <h2>Explore Sky City</h2>
+      <p>
+        Discover businesses, explore entertainment, access community
+        services, and connect with people throughout your city.
+      </p>
+    </section>
+
+    <section class="districts" aria-labelledby="district-heading">
+      <div class="section-heading">
+        <h2 id="district-heading">Explore the Districts</h2>
+        <p>Where would you like to go today?</p>
+      </div>
+
+      <div class="district-grid">
+        <a class="district-card business-district"
+           href="/districts/business">
+          <span class="district-label">SHOP & DISCOVER</span>
+          <h3>Business Listings</h3>
+          <p>
+            Explore storefronts, restaurants, products,
+            and professional services.
+          </p>
+          <span class="district-action">Explore Businesses →</span>
+        </a>
+
+        <a class="district-card entertainment-district"
+           href="/districts/entertainment">
+          <span class="district-label">EXPERIENCE & ENJOY</span>
+          <h3>Entertainment</h3>
+          <p>
+            Discover music, movies, games, events,
+            creators, and new experiences.
+          </p>
+          <span class="district-action">Explore Entertainment →</span>
+        </a>
+
+        <a class="district-card services-district"
+           href="/districts/services">
+          <span class="district-label">COMMUNITY RESOURCES</span>
+          <h3>City Services</h3>
+          <p>
+            Find nonprofit organizations, community
+            programs, and helpful resources.
+          </p>
+          <span class="district-action">Explore City Services →</span>
+        </a>
+
+        <a class="district-card social-district"
+           href="/districts/social">
+          <span class="district-label">CONNECT & NETWORK</span>
+          <h3>Community Social Hubs</h3>
+          <p>
+            Meet people, build connections, and
+            participate in your community.
+          </p>
+          <span class="district-action">Explore Social Hubs →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="city-footer">
+    <p>Sky City — Where Business Meets Opportunity.</p>
+    <small>Powered by Rays Up Holding Group</small>
+  </footer>
+</body>
 </html>

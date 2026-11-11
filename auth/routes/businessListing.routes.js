@@ -5,7 +5,13 @@ const router = express.Router();
 const businessListingController = require("../controller/businessListingController");
 const businessInventoryImportController = require("../controller/businessInventoryImportController");
 const businessInventoryUpload = require("../middleware/businessInventoryUpload");
-// Show the create business listing page
+const requireBusinessInventoryOwner = require("../middleware/requireBusinessInventoryOwner");
+const {
+  ensureBusinessInventoryCsrf,
+  requireBusinessInventoryCsrf
+} = require("../middleware/businessInventoryCsrf");
+
+
 router.get(
     "/create",
     businessListingController.getCreateBusinessListing
@@ -60,8 +66,19 @@ router.post(
 
 // Display the Bulk Inventory Upload page
 router.get(
-    "/:id/items/bulk-upload",
-    businessListingController.getBulkUploadBusinessItemsForm
+  "/:id/items/bulk-upload",
+  requireBusinessInventoryOwner,
+  ensureBusinessInventoryCsrf,
+  businessListingController.getBulkUploadBusinessItemsForm
+);
+
+// Validate and preview uploaded inventory
+router.post(
+  "/:id/items/bulk-upload/preview",
+  requireBusinessInventoryOwner,
+  requireBusinessInventoryCsrf,
+  businessInventoryUpload,
+  businessInventoryImportController.previewInventoryUpload
 );
 
 

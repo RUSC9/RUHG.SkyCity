@@ -2,7 +2,7 @@
   const bcrypt = require("bcrypt");
   const Consumer = require("../models/Consumer");
   const Business = require("../models/Business");
-  const BusinessListing = require("../models/businessListing"); 
+  const BusinessListing = require("../models/businessListing");
 
 
 //get login page with business and consumer option
@@ -17,22 +17,22 @@ exports.getBusinessRegisterPage = (req, res) => {
 };
 //handle business registration
 exports.registerBusiness = async(req, res) => {
-  try{ 
+  try{
 
     const {
-      businessName, 
-      email, 
-      contactPhone, 
-      password, 
-      confirmPassword 
+      businessName,
+      email,
+      contactPhone,
+      password,
+      confirmPassword
     } = req.body;
 
     //Make sure required fields are present
   if (
-    !businessName || 
-    !email || 
-    !contactPhone || 
-    !password || 
+    !businessName ||
+    !email ||
+    !contactPhone ||
+    !password ||
     !confirmPassword
   ) {
     return res.status(400).send("Please complete all required fields.");
@@ -45,10 +45,10 @@ exports.registerBusiness = async(req, res) => {
 
   //Prevent duplicate business accounts using the same email
   const existingBusiness = await Business.findOne({ email });
-  
+
   if (existingBusiness) {
     return res
-        .status(400) 
+        .status(400)
         .send("A Business with this email already exists.");
   }
 
@@ -70,7 +70,7 @@ exports.registerBusiness = async(req, res) => {
 
   //Send new businessto create its listing
   return res.redirect("/business-listings/create");
-  
+
 } catch (error){
   console.error("Business registration error:", error);
 
@@ -217,3 +217,16 @@ exports.loginConsumer = async (req, res) => {
       return res.status(500).send("Server error.");
     }
   };
+
+// Handle consumer logout
+exports.handleConsumerLogout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Consumer logout error:", err);
+      return res.status(500).send("Logout failed");
+    }
+
+    res.clearCookie("connect.sid");
+    return res.redirect("/auth/login/consumer");
+  });
+};

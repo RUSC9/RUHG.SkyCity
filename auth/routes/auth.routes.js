@@ -26,6 +26,10 @@ router.post("/login/business", authController.loginBusiness);
 //handle business logout
 router.get("/logout", authController.handleBusinessLogout);
 
+
+ // Consumer logout — POST only
+router.post("/logout/consumer", authController.handleConsumerLogout);
+
 //Consumer registration and login
 
 //show consumer registration
@@ -42,5 +46,3 @@ router.post("/login/consumer", authController.loginConsumer);
 
 
 module.exports = router;
-
-
