@@ -1,0 +1,238 @@
+
+/* SKY CITY — PREMIUM PUBLIC ENTRANCE */
+
+:root {
+  --navy: #09283f;
+  --cyan: #007fa8;
+  --violet: #6547c7;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--navy);
+  background: #eaf6fc;
+}
+
+a {
+  text-decoration: none;
+}
+
+.landing-shell {
+  min-height: 100vh;
+}
+
+/* NAVIGATION */
+
+.site-header {
+  min-height: 88px;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(9, 40, 63, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.3rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+}
+
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.site-nav a {
+  color: var(--navy);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.site-nav .nav-join {
+  padding: 12px 22px;
+  color: white;
+  background: var(--navy);
+  border-radius: 7px;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 76vh;
+  display: flex;
+  align-items: center;
+  padding: 70px 8%;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(240, 250, 255, 0.97) 0%,
+      rgba(240, 250, 255, 0.88) 32%,
+      rgba(240, 250, 255, 0.22) 70%,
+      rgba(240, 250, 255, 0.03) 100%
+    ),
+    url("/images/LandingPage.PNG");
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.hero-content {
+  max-width: 680px;
+}
+
+.eyebrow,
+.section-label {
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+}
+
+.hero h1 {
+  margin: 20px 0 24px;
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  font-weight: 850;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.hero h1 span {
+  color: var(--violet);
+}
+
+.hero-description {
+  max-width: 540px;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 34px;
+}
+
+.primary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 17px 26px;
+  background: var(--navy);
+  color: white;
+  border-radius: 7px;
+  font-weight: 750;
+}
+
+.secondary-action {
+  color: var(--navy);
+  font-weight: 700;
+  border-bottom: 1px solid var(--navy);
+  padding-bottom: 5px;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 4px;
+}
+
+/* ABOUT */
+
+.about-section {
+  padding: 75px 8%;
+  background: white;
+}
+
+.about-content {
+  max-width: 760px;
+}
+
+.about-section h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.04em;
+  margin: 15px 0;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #40566a;
+}
+
+/* FOOTER */
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 30px 8%;
+  background: var(--navy);
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .site-header {
+    padding: 18px 5%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-nav {
+    gap: 16px;
+  }
+
+  .hero {
+    min-height: 75vh;
+    padding: 70px 6%;
+    background-image:
+      linear-gradient(
+        rgba(240, 250, 255, 0.92),
+        rgba(240, 250, 255, 0.62)
+      ),
+      url("/images/LandingPage.PNG");
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .about-section {
+    padding: 55px 6%;
+  }
+}
+
