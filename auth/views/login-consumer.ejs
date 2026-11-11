@@ -1,36 +1,75 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky City - consumer Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumer Login | RUHG Sky City</title>
+  <link rel="stylesheet" href="/css/member-login.css">
 </head>
+
 <body>
-    <main>
-            <h1>Consumer Login</h1>
+  <header class="login-header">
+    <a href="/" class="brand">
+      <span class="brand-symbol">SC</span>
+      <span class="brand-name">
+        <small>RUHG</small>
+        SKY CITY
+      </span>
+    </a>
 
-        <form action="/auth/login/consumer" method="POST">
-        <label for="email">Email</label>
-                <input 
-                type="email"
-                id="email"
-                name="email"
-                required>
-                    
-        <label for="password">Password</label>
-                <input
-                type="password"
-                id="password"
-                name="password"
-                required>
+    <nav aria-label="Login navigation">
+      <a href="/auth/login">Back to Member Access</a>
+      <a href="/">Home</a>
+    </nav>
+  </header>
 
-        <button type="submit">Log in</button>
-        </form>
+  <main class="login-main">
+    <section class="login-panel" aria-labelledby="login-title">
+      <span class="eyebrow">SKY CITY / CONSUMER ACCESS</span>
 
-        <p>
-            Need an Account?
-            <a href="/auth/register/consumer">Create Consumer Account</a>
-        </p>
-        </main>
-    </body>
+     
+<h1 id="login-title">Your city awaits.</h1>
+
+<p class="login-intro">
+  Step into Sky City. Discover businesses, shop,
+  explore entertainment, connect with your community,
+  and experience a city built around you.
+</p>
+
+
+      <form action="/auth/login/consumer" method="POST">
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required>
+        </div>
+
+        <button type="submit" class="login-button">
+          Enter Sky City
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </form>
+
+      <p class="register-prompt">
+        New to Sky City?
+        <a href="/auth/register/consumer">Create Consumer Account</a>
+      </p>
+    </section>
+  </main>
+</body>
 </html>

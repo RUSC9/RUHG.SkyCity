@@ -1,22 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name=""viewport" content="width=device-width, initial-scale=1.0">
-        <title><%= title %></title>
-    </head>
-    <body>
-        <main>
-            <h1>Welcome Back to Sky City</h1>
-            <p>Select your account type to log in;</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <button onclick="window.location.href='/auth/login/consumer'">
-                Consumer Login
-            </button>
+  <title>Welcome Back | RUHG Sky City</title>
 
-             <button onclick="window.location.href='/auth/login/business'">
-                Business Login
-            </button>
-        </main>
-    </body>
+  <link rel="stylesheet" href="/css/welcome-back.css">
+</head>
+
+<body>
+  <header class="welcome-header">
+    <a href="/" class="brand" aria-label="Sky City Home">
+      <span class="brand-symbol">SC</span>
+      <span class="brand-name">
+        <small>RUHG</small>
+        SKY CITY
+      </span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/JoinSkyCity.html">Join Sky City</a>
+    </nav>
+  </header>
+
+  <main class="welcome-main">
+    <section class="welcome-panel"
+             aria-labelledby="welcome-title">
+
+      <span class="eyebrow">SKY CITY / MEMBER ACCESS</span>
+
+      <h1 id="welcome-title">Welcome back.</h1>
+
+      <p class="welcome-intro">
+        Your city is waiting. Select your account type
+        to continue your Sky City experience.
+      </p>
+
+      <div class="access-options">
+
+        <a href="/auth/login/consumer"
+           class="access-card consumer-access">
+          <span class="access-type">CONSUMER ACCESS</span>
+          <span class="access-name">Enter as Consumer</span>
+          <span class="access-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <a href="/auth/login/business"
+           class="access-card business-access">
+          <span class="access-type">BUSINESS ACCESS</span>
+          <span class="access-name">Enter as Business</span>
+          <span class="access-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+      </div>
+
+      <p class="join-prompt">
+        New to Sky City?
+        <a href="/JoinSkyCity.html">Create an account</a>
+      </p>
+
+    </section>
+  </main>
+</body>
 </html>

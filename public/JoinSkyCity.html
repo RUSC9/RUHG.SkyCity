@@ -1,32 +1,107 @@
-<section id="join" class="sc-section sc-join">
-  <h2>Join Sky City</h2>
-  <div class="sc-join-grid">
 
-    <!-- Consumer Section -->
-    <div class="sc-join-card">
-      <h3>Consumers</h3>
-      <p>Create your profile, explore districts, socialize, chat, and leave reviews.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- Consumer Registration -->
-      <button onclick="window.location.href='/auth/register/consumer'">
-        Create Consumer Profile
-      </button>
+  <meta name="description"
+        content="Join Sky City as a consumer or business.">
 
-     
-    </div>
+  <title>Join Sky City | Choose Your Gateway</title>
 
-    <!-- Business Section -->
-    <div class="sc-join-card">
-      <h3>Businesses</h3>
-      <p>Build your storefront, list services, upload media, and connect with customers.</p>
+  <link rel="stylesheet" href="/css/join-sky-city.css">
+</head>
 
-      <!-- Business Registration -->
-      <button onclick="window.location.href='/auth/register/business'">
-        Create Business Profile
-      </button>
+<body>
 
-    
-    </div>
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-symbol">SC</span>
+      <span>SKY CITY</span>
+    </a>
 
-  </div>
-</section>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/auth/login">Log In</a>
+    </nav>
+  </header>
+
+  <main class="join-main">
+
+    <section class="join-intro">
+      <span class="eyebrow">YOUR CITY. YOUR OPPORTUNITY.</span>
+
+      <h1>Join Sky City.</h1>
+
+      <p>
+        One connected digital city. Two ways to experience it.
+        Choose how you want to begin.
+      </p>
+    </section>
+
+    <section class="gateway-grid"
+             aria-label="Choose your Sky City membership">
+
+      <!-- CONSUMER GATEWAY -->
+      <article class="gateway-card consumer">
+
+        <div class="gateway-content">
+          <span class="gateway-label">01 / CONSUMER</span>
+
+          <h2>Discover.<br>Connect.<br>Experience.</h2>
+
+          <p>
+            Explore businesses, discover entertainment,
+            connect with your community, and experience
+            everything Sky City has to offer.
+          </p>
+        </div>
+
+        <a href="/auth/register/consumer"
+           class="gateway-action">
+          Create Consumer Profile
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+
+      </article>
+
+      <!-- BUSINESS GATEWAY -->
+      <article class="gateway-card business">
+
+        <div class="gateway-content">
+          <span class="gateway-label">02 / BUSINESS</span>
+
+          <h2>Build.<br>Grow.<br>Thrive.</h2>
+
+          <p>
+            Establish your digital storefront, showcase
+            products and services, reach customers,
+            and grow your business in Sky City.
+          </p>
+        </div>
+
+        <a href="/auth/register/business"
+           class="gateway-action">
+          Create Business Profile
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+
+      </article>
+
+    </section>
+
+    <p class="member-prompt">
+      Already part of Sky City?
+      <a href="/auth/login">Log in to your account</a>
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>SKY CITY</span>
+    <span>Where Business Meets Opportunity.</span>
+  </footer>
+
+</body>
+</html>

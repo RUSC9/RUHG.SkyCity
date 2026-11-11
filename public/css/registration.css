@@ -1,0 +1,225 @@
+
+/* RUHG SKY CITY — ENROLLMENT CENTER */
+
+:root {
+  --navy: #09283f;
+  --cyan: #007fa8;
+  --violet: #6547c7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--navy);
+  background: #eaf6fc;
+}
+
+a {
+  text-decoration: none;
+}
+
+.enrollment-header {
+  min-height: 82px;
+  padding: 14px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(255,255,255,0.96);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--navy);
+}
+
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--cyan);
+  border-radius: 9px;
+  font-weight: 800;
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.brand-name small {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+}
+
+.enrollment-header nav {
+  display: flex;
+  gap: 25px;
+}
+
+.enrollment-header nav a {
+  color: var(--navy);
+  font-weight: 650;
+}
+
+/* BACKGROUND */
+
+.enrollment-main {
+  min-height: calc(100vh - 82px);
+  display: flex;
+  align-items: center;
+  padding: 45px 7%;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(235,247,255,0.65),
+      rgba(235,247,255,0.05) 75%
+    ),
+    url("/images/registration.PNG");
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* ENROLLMENT PANEL */
+
+.enrollment-panel {
+  width: 100%;
+  max-width: 520px;
+  padding: 36px 40px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 12px;
+  box-shadow: 0 15px 45px rgba(9,40,63,0.16);
+  backdrop-filter: blur(14px);
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.enrollment-panel h1 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  margin: 14px 0;
+}
+
+.intro {
+  color: #40566a;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* FORM */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.field {
+  margin-bottom: 17px;
+}
+
+.field label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.field input {
+  width: 100%;
+  min-height: 45px;
+  padding: 11px 13px;
+  border: 1px solid #b8cad6;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.96);
+  color: var(--navy);
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 2px solid var(--cyan);
+  outline-offset: 1px;
+}
+
+.submit-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 7px;
+  background: var(--navy);
+  color: white;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background: var(--violet);
+}
+
+.login-prompt {
+  margin: 24px 0 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-prompt a {
+  color: var(--violet);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .enrollment-header {
+    padding: 15px 5%;
+    flex-wrap: wrap;
+  }
+
+  .enrollment-main {
+    padding: 30px 5%;
+    background-position: center;
+  }
+
+  .enrollment-panel {
+    padding: 27px 22px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

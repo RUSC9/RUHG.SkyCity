@@ -1,0 +1,212 @@
+
+/* RUHG SKY CITY — MEMBER LOGIN */
+
+:root {
+  --navy: #09283f;
+  --cyan: #007fa8;
+  --violet: #6547c7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--navy);
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #eaf6fc;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* HEADER */
+
+.login-header {
+  min-height: 82px;
+  padding: 14px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--navy);
+}
+
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--cyan);
+  border-radius: 9px;
+  font-weight: 800;
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.brand-name small {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+}
+
+.login-header nav {
+  display: flex;
+  gap: 25px;
+}
+
+.login-header nav a {
+  color: var(--navy);
+  font-weight: 650;
+}
+
+/* BACKGROUND */
+
+.login-main {
+  min-height: calc(100vh - 82px);
+  display: flex;
+  justify-content: center;
+  padding: 60px 8%;
+
+  background-image: url("/images/welcomeBack.PNG");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* LOGIN PANEL */
+
+.login-panel {
+  width: 100%;
+  max-width: 500px;
+  padding: 42px;
+
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 15px 45px rgba(9, 40, 63, 0.16);
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.business-panel .eyebrow {
+  color: var(--violet);
+}
+
+.login-panel h1 {
+  margin: 18px 0;
+  font-size: clamp(2.3rem, 4vw, 3.3rem);
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.login-intro {
+  color: #40566a;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* FORM */
+
+.field {
+  margin-bottom: 19px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.87rem;
+  font-weight: 750;
+}
+
+.field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #b9cedd;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.login-button {
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border: none;
+  border-radius: 7px;
+  background: var(--navy);
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #174563;
+}
+
+.register-prompt {
+  margin: 25px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.register-prompt a {
+  color: var(--violet);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .login-header {
+    padding: 15px 5%;
+    flex-wrap: wrap;
+  }
+
+  .login-main {
+    padding: 30px 5%;
+  }
+
+  .login-panel {
+    padding: 30px 23px;
+  }
+}

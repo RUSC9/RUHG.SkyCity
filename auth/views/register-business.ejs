@@ -1,63 +1,114 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Business Registration|Sky City</title>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body>
-        <main>
-            <h1>Register Your Business</h1>
-            <P>Create your Sky City Business account.</P>
+  <title>Business Enrollment | RUHG Sky City</title>
 
-            <form action="/auth/register-business"
-            method="POST">
+  <link rel="stylesheet" href="/css/registration.css">
+</head>
 
-         <label for="businessName">Business name</label>
-         <input
-         type="text"
-         id="businessName"
-         name="businessName"
-         required>
+<body>
+  <header class="enrollment-header">
+    <a href="/" class="brand">
+      <span class="brand-symbol">SC</span>
+      <span class="brand-name">
+        <small>RUHG</small>
+        SKY CITY
+      </span>
+    </a>
 
-         <label for="email">Email</label>   
-         <input
-         type="email"
-         id="Email"
-         name="email"
-         required>
+    <nav aria-label="Enrollment navigation">
+      <a href="/JoinSkyCity.html">Back to Join</a>
+      <a href="/auth/login">Log In</a>
+    </nav>
+  </header>
 
-         <label for="contactPhone">Contact Phone</label>
-         <input
-         type="tel"
-         id="contactPhone"
-         name="contactPhone"
-         required>
+  <main class="enrollment-main">
+    <section class="enrollment-panel"
+             aria-labelledby="enrollment-title">
 
-         <label for="password">Password</label>
-         <input
-         type="password"
-         id="password"
-         name="password"
-         required>
+      <span class="eyebrow">
+        SKY CITY / BUSINESS ENROLLMENT
+      </span>
 
-         <label for="confirmPassword">Confirm Password</label>
-         <input
-         type="password"
-         id="confirmPassword"
-         name="confirmPassword"
-         required>
-        
-         
+      <h1 id="enrollment-title">
+        Build your future here.
+      </h1>
 
-            <button type="submit">Create Business Account</button>
-        </form>
+      <p class="intro">
+        Establish your business presence in Sky City
+        and connect with new opportunities.
+      </p>
 
-        <p>
-            Already have an Account?
-            <a href="/auth/login">Log in</a>
-        </p>
-        </main>
-    </body>
+      <form action="/auth/register-business" method="POST">
+
+        <div class="field">
+          <label for="businessName">Business Name</label>
+          <input
+            type="text"
+            id="businessName"
+            name="businessName"
+            autocomplete="organization"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="email">Business Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="contactPhone">Contact Phone</label>
+          <input
+            type="tel"
+            id="contactPhone"
+            name="contactPhone"
+            autocomplete="tel"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="new-password"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            autocomplete="new-password"
+            required>
+        </div>
+
+        <button type="submit" class="submit-button">
+          Create Business Account
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </form>
+
+      <p class="login-prompt">
+        Already a member?
+        <a href="/auth/login">Log in</a>
+      </p>
+
+    </section>
+  </main>
+</body>
 </html>
